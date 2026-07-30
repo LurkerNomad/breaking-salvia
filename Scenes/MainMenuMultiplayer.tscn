@@ -1,0 +1,150 @@
+[gd_scene format=3 uid="uid://cgonkqjdi3h37"]
+
+[ext_resource type="Script" uid="uid://bn4x7pu40pj2r" path="res://scripts/MainMenu.gd" id="1_yqorp"]
+[ext_resource type="AudioStream" uid="uid://cpctrms8my6ot" path="res://audio/MUSIC/breaking-bad-theme.mp3" id="2_n0o45"]
+
+[node name="MainMenuCore" type="Node" unique_id=540676421]
+
+[node name="MainMenu" type="Control" parent="." unique_id=1583118454]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yqorp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu" unique_id=679633287]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/VBoxContainer" unique_id=1301895827]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MainMenu/VBoxContainer/HBoxContainer" unique_id=1963550783]
+layout_mode = 2
+text = "WHO ARE YOU GOING TO BE? PASSWORD PLEASE! "
+
+[node name="PasswordInput" type="LineEdit" parent="MainMenu/VBoxContainer/HBoxContainer" unique_id=1742068175]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+placeholder_text = "Enter your password"
+alignment = 1
+
+[node name="CharLabel" type="Label" parent="MainMenu/VBoxContainer/HBoxContainer" unique_id=128248159]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="MainMenu/VBoxContainer" unique_id=1563172328]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="MainMenu" unique_id=1852715188]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 31.0
+tab_alignment = 1
+current_tab = 0
+
+[node name="LAN" type="TabBar" parent="MainMenu/TabContainer" unique_id=1220859372]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="LANContainer" type="VBoxContainer" parent="MainMenu/TabContainer/LAN" unique_id=1438360302]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MainMenu/TabContainer/LAN/LANContainer" unique_id=378235392]
+layout_mode = 2
+text = "IP (leave blank to host)"
+horizontal_alignment = 1
+
+[node name="LANIPInput" type="LineEdit" parent="MainMenu/TabContainer/LAN/LANContainer" unique_id=1696752519]
+layout_mode = 2
+placeholder_text = "192.168.x.x"
+alignment = 1
+
+[node name="Label2" type="Label" parent="MainMenu/TabContainer/LAN/LANContainer" unique_id=185618385]
+layout_mode = 2
+text = "Port"
+horizontal_alignment = 1
+
+[node name="LANPortInput" type="LineEdit" parent="MainMenu/TabContainer/LAN/LANContainer" unique_id=2047302205]
+layout_mode = 2
+placeholder_text = "7777"
+alignment = 1
+
+[node name="LANHostButton" type="Button" parent="MainMenu/TabContainer/LAN/LANContainer" unique_id=1633472734]
+layout_mode = 2
+text = "HOST"
+
+[node name="LANJoinButton" type="Button" parent="MainMenu/TabContainer/LAN/LANContainer" unique_id=2016894606]
+layout_mode = 2
+text = "JOIN"
+
+[node name="Noray(Internet)" type="TabBar" parent="MainMenu/TabContainer" unique_id=1263481458]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="NorayContainer" type="VBoxContainer" parent="MainMenu/TabContainer/Noray(Internet)" unique_id=1927377215]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 120.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MainMenu/TabContainer/Noray(Internet)/NorayContainer" unique_id=674195905]
+layout_mode = 2
+text = "Your ID"
+horizontal_alignment = 1
+
+[node name="YourIDLabel" type="Label" parent="MainMenu/TabContainer/Noray(Internet)/NorayContainer" unique_id=1355402218]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="CopyIDButton" type="Button" parent="MainMenu/TabContainer/Noray(Internet)/NorayContainer" unique_id=1850432923]
+layout_mode = 2
+text = "Copy ID"
+
+[node name="HSeparator" type="HSeparator" parent="MainMenu/TabContainer/Noray(Internet)/NorayContainer" unique_id=1688779422]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MainMenu/TabContainer/Noray(Internet)/NorayContainer" unique_id=2102407593]
+layout_mode = 2
+text = "Join ID"
+horizontal_alignment = 1
+
+[node name="JoinIDInput" type="LineEdit" parent="MainMenu/TabContainer/Noray(Internet)/NorayContainer" unique_id=2139281008]
+layout_mode = 2
+placeholder_text = "Paste peer ID here"
+alignment = 1
+
+[node name="HostButton" type="Button" parent="MainMenu/TabContainer/Noray(Internet)/NorayContainer" unique_id=589931761]
+layout_mode = 2
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="MainMenu/TabContainer/Noray(Internet)/NorayContainer" unique_id=134370252]
+layout_mode = 2
+text = "Join"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=628612532]
+stream = ExtResource("2_n0o45")
+volume_db = -21.895
+autoplay = true
+
+[connection signal="pressed" from="MainMenu/TabContainer/LAN/LANContainer/LANHostButton" to="MainMenu" method="_on_lan_host_button_pressed"]
+[connection signal="pressed" from="MainMenu/TabContainer/LAN/LANContainer/LANJoinButton" to="MainMenu" method="_on_lan_join_button_pressed"]
+[connection signal="pressed" from="MainMenu/TabContainer/Noray(Internet)/NorayContainer/CopyIDButton" to="MainMenu" method="_on_copy_id_button_pressed"]
+[connection signal="pressed" from="MainMenu/TabContainer/Noray(Internet)/NorayContainer/HostButton" to="MainMenu" method="_on_host_button_pressed"]
+[connection signal="pressed" from="MainMenu/TabContainer/Noray(Internet)/NorayContainer/JoinButton" to="MainMenu" method="_on_join_button_pressed"]

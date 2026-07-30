@@ -1,0 +1,1185 @@
+[gd_scene format=3 uid="uid://bw5u4joref5h7"]
+
+[ext_resource type="Script" uid="uid://d2aomnfq45764" path="res://scripts/World.gd" id="1_kqs1s"]
+[ext_resource type="Texture2D" uid="uid://ct215eufkx1hg" path="res://images/LaboratorySkyBox.png" id="2_j0p05"]
+[ext_resource type="Material" uid="uid://ktv21jewpxdq" path="res://Textures/Metal.tres" id="3_p70al"]
+[ext_resource type="Texture2D" uid="uid://cqfi56r8hsewb" path="res://images/LightBulb.png" id="4_45d1s"]
+[ext_resource type="Texture2D" uid="uid://xy3bkjalnlmi" path="res://images/Vents.jpg" id="5_y7y61"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ggkii"]
+panorama = ExtResource("2_j0p05")
+
+[sub_resource type="Sky" id="Sky_2a63y"]
+sky_material = SubResource("PanoramaSkyMaterial_ggkii")
+
+[sub_resource type="Environment" id="Environment_oae41"]
+background_mode = 2
+sky = SubResource("Sky_2a63y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gjpho"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q2d71"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.627451)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p70al"]
+albedo_color = Color(0.79321796, 0.4711529, 0.18224487, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uo7di"]
+albedo_texture = ExtResource("4_45d1s")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kn06e"]
+albedo_texture = ExtResource("5_y7y61")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52c3i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvoc7"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2a63y"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.5372549)
+
+[node name="World" type="Node3D" unique_id=1664425396]
+script = ExtResource("1_kqs1s")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=15112238]
+environment = SubResource("Environment_oae41")
+
+[node name="Warehouse" type="CSGCombiner3D" parent="." unique_id=1105218598]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Warehouse" unique_id=120375346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, -21.535645)
+size = Vector3(25, 15, 68.07129)
+material = SubResource("StandardMaterial3D_gjpho")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Warehouse" unique_id=1201177291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9916382, 6.82959, -21.99466)
+operation = 2
+size = Vector3(20.846802, 14, 47.6369)
+material = SubResource("StandardMaterial3D_gjpho")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Warehouse" unique_id=1921725122]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2700615, 2.8968506, -8.812336)
+operation = 2
+size = Vector3(3.9668274, 6.1345215, 9.624222)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Warehouse" unique_id=709304063]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.259206, 2.8968506, -22.797306)
+operation = 2
+size = Vector3(3.9668274, 6.1345215, 9.624222)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Warehouse" unique_id=1304686728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9985437, 2.8968506, 7.4904613)
+operation = 2
+size = Vector3(8.767458, 6.1345215, 9.624222)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Warehouse" unique_id=2012011734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6438665, 2.104187, 1.9825325)
+operation = 2
+size = Vector3(2.8176289, 4.5491943, 1.7935562)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Warehouse" unique_id=1741764499]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1177273, 2.8968506, 6.4938526)
+operation = 2
+size = Vector3(9, 6.1345215, 9.624222)
+material = SubResource("StandardMaterial3D_gjpho")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Warehouse" unique_id=1454730604]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.049915, 2.8968506, 7.139385)
+operation = 2
+size = Vector3(6.751953, 6.1345215, 10.469776)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Warehouse" unique_id=1800250924]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.50253, 2.104187, 1.9825325)
+operation = 2
+size = Vector3(2.8176289, 4.5491943, 1.7935562)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Warehouse" unique_id=801354356]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0118046, 2.8968506, -50.338005)
+operation = 2
+size = Vector3(11.766991, 6.1345215, 9.624222)
+material = SubResource("StandardMaterial3D_gjpho")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1247148194]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.17642, 6.860555, -28.89558)
+use_collision = true
+size = Vector3(5, 1, 34)
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=55919808]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6769204, 8.360556, -28.89558)
+use_collision = true
+size = Vector3(0.001, 2, 34)
+material = SubResource("StandardMaterial3D_q2d71")
+
+[node name="StairCase" type="CSGCombiner3D" parent="." unique_id=1142276312]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.630688, 4, -9)
+use_collision = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="StairCase" unique_id=1595411272]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+height = 16.0
+material = ExtResource("3_p70al")
+
+[node name="Staircase" type="Node3D" parent="StairCase" unique_id=1947396129]
+transform = Transform3D(0.5040352, 0, -0.86368316, 0, 1, 0, 0.86368316, 0, 0.5040352, 0, 3.8346462, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase" unique_id=1574323710]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase" unique_id=522180866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+use_collision = true
+size = Vector3(1, 2, 0.001)
+material = ExtResource("3_p70al")
+
+[node name="Staircase2" type="Node3D" parent="StairCase" unique_id=1415020896]
+transform = Transform3D(0.83197355, 0, -0.5548153, 0, 1, 0, 0.5548153, 0, 0.83197355, 0, 3.3679667, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase2" unique_id=2067643323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="Staircase3" type="Node3D" parent="StairCase" unique_id=40142859]
+transform = Transform3D(0.9998518, 0, 0.017215312, 0, 1, 0, -0.017215312, 0, 0.9998518, 0, 2.8883486, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase3" unique_id=2037375897]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="Staircase4" type="Node3D" parent="StairCase" unique_id=1226033122]
+transform = Transform3D(0.88714767, 0, 0.46148568, 0, 1, 0, -0.46148568, 0, 0.88714767, 0, 2.5049925, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase4" unique_id=1376753542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="Staircase5" type="Node3D" parent="StairCase" unique_id=295231641]
+transform = Transform3D(0.5476283, 0, 0.8367218, 0, 1, 0, -0.8367218, 0, 0.5476283, 0, 2.0130072, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase5" unique_id=1525102926]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase5" unique_id=1153042707]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase6" type="Node3D" parent="StairCase" unique_id=229864622]
+transform = Transform3D(0.034229368, 0, 0.99941397, 0, 1, 0, -0.99941397, 0, 0.034229368, 0, 1.5273895, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase6" unique_id=2036407890]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase6" unique_id=1855306486]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase7" type="Node3D" parent="StairCase" unique_id=1319385628]
+transform = Transform3D(-0.4074019, 0, 0.913249, 0, 1, 0, -0.913249, 0, -0.4074019, 0, 1.1369925, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase7" unique_id=303090562]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase7" unique_id=666028449]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase8" type="Node3D" parent="StairCase" unique_id=1208856800]
+transform = Transform3D(-0.7504922, 0, 0.66087925, 0, 1, 0, -0.66087925, 0, -0.7504922, 0, 0.6241236, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase8" unique_id=102569932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase8" unique_id=707065023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase9" type="Node3D" parent="StairCase" unique_id=301589632]
+transform = Transform3D(-0.9778179, 0, 0.2094571, 0, 1, 0, -0.2094571, 0, -0.9778179, 0, 0.06556797, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase9" unique_id=1554212597]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase9" unique_id=906586383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase10" type="Node3D" parent="StairCase" unique_id=1930167523]
+transform = Transform3D(-0.96162957, 0, -0.27435154, 0, 1, 0, 0.27435154, 0, -0.96162957, 0, -0.3530984, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase10" unique_id=106736574]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase10" unique_id=1211076916]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase11" type="Node3D" parent="StairCase" unique_id=984147424]
+transform = Transform3D(-0.73996246, 0, -0.6726482, 0, 1, 0, 0.6726482, 0, -0.73996246, 0, -0.7593503, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase11" unique_id=208526787]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase11" unique_id=622662894]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase12" type="Node3D" parent="StairCase" unique_id=1721218090]
+transform = Transform3D(-0.30271602, 0, -0.9530809, 0, 1, 0, 0.9530809, 0, -0.30271602, 0, -1.1007428, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase12" unique_id=1991314959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase12" unique_id=1536622913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase13" type="Node3D" parent="StairCase" unique_id=724960726]
+transform = Transform3D(0.07883984, 0, -0.9968875, 0, 1, 0, 0.9968875, 0, 0.07883984, 0, -1.4714773, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase13" unique_id=246031172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase13" unique_id=1800438063]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase14" type="Node3D" parent="StairCase" unique_id=684488430]
+transform = Transform3D(0.6185104, 0, -0.78577685, 0, 1, 0, 0.78577685, 0, 0.6185104, 0, -1.7939224, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase14" unique_id=1067979665]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase14" unique_id=919497325]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase15" type="Node3D" parent="StairCase" unique_id=1059365398]
+transform = Transform3D(0.9193971, 0, -0.39333096, 0, 1, 0, 0.39333096, 0, 0.9193971, 0, -2.1781707, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase15" unique_id=54868146]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase15" unique_id=1729599274]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase16" type="Node3D" parent="StairCase" unique_id=1123881798]
+transform = Transform3D(0.99830854, 0, 0.05813849, 0, 1, 0, -0.05813849, 0, 0.99830854, 0, -2.5087779, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase16" unique_id=279356520]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase16" unique_id=1858313789]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase17" type="Node3D" parent="StairCase" unique_id=1279690480]
+transform = Transform3D(0.88440216, 0, 0.4667256, 0, 1, 0, -0.4667256, 0, 0.88440216, 0, -2.944806, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase17" unique_id=1767375697]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase17" unique_id=603051966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase18" type="Node3D" parent="StairCase" unique_id=153559669]
+transform = Transform3D(0.5897542, 0, 0.8075828, 0, 1, 0, -0.8075828, 0, 0.5897542, 0, -3.2435136, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase18" unique_id=1388082566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase18" unique_id=443380254]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="Staircase19" type="Node3D" parent="StairCase" unique_id=1860988345]
+transform = Transform3D(0.16966066, 0, 0.9855026, 0, 1, 0, -0.9855026, 0, 0.16966066, 0, -3.567664, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StairCase/Staircase19" unique_id=1970715560]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, -0.4994998, -1.2182646)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 0.001, 3.4365234)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StairCase/Staircase19" unique_id=1943433358]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5000005, -2.9360237)
+material_override = ExtResource("3_p70al")
+use_collision = true
+size = Vector3(1, 2, 0.001)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="StairCase" unique_id=1348635276]
+transform = Transform3D(0.86676663, 0, 0.4987139, 0, 1, 0, -0.4987139, 0, 0.86676663, 1.4815464, 4.292474, -0.49394703)
+size = Vector3(2.845581, 2.000122, 0.001)
+
+[node name="Vents" type="CSGCombiner3D" parent="." unique_id=2018790143]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7555506, 13.725671, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Vents" unique_id=851659269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -21)
+size = Vector3(3, 2, 43)
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Vents" unique_id=212430981]
+transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, -2, -1.5, -3.5)
+size = Vector3(3, 2, 2)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Vents" unique_id=1595915676]
+transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, -2, -1.5, -12.5)
+size = Vector3(3, 2, 2)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Vents" unique_id=1730592114]
+transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, -2, -1.5, -21.5)
+size = Vector3(3, 2, 2)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Vents" unique_id=1602622238]
+transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, -2, -1.5, -31.5)
+size = Vector3(3, 2, 2)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Vents" unique_id=681807914]
+transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, -2, -1.5, -40.5)
+size = Vector3(3, 2, 2)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Vents" unique_id=2066498517]
+transform = Transform3D(-0.8660254, 0.5, -8.742278e-08, 0.5, 0.8660254, 0, 7.5710346e-08, -4.371139e-08, -1, 1.9999983, -1.5, -40.3)
+size = Vector3(3, 2, 2)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Vents" unique_id=2021052649]
+transform = Transform3D(-0.8660254, 0.5, -8.742278e-08, 0.5, 0.8660254, 0, 7.5710346e-08, -4.371139e-08, -1, 1.9999993, -1.5, -31.3)
+size = Vector3(3, 2, 2)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Vents" unique_id=1288921019]
+transform = Transform3D(-0.8660254, 0.5, -8.742278e-08, 0.5, 0.8660254, 0, 7.5710346e-08, -4.371139e-08, -1, 2, -1.5, -22.3)
+size = Vector3(3, 2, 2)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Vents" unique_id=276459058]
+transform = Transform3D(-0.8660254, 0.5, -8.742278e-08, 0.5, 0.8660254, 0, 7.5710346e-08, -4.371139e-08, -1, 2.0000007, -1.5, -12.299999)
+size = Vector3(3, 2, 2)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Vents" unique_id=1839926034]
+transform = Transform3D(-0.8660254, 0.5, -8.742278e-08, 0.5, 0.8660254, 0, 7.5710346e-08, -4.371139e-08, -1, 2.0000017, -1.5, -3.2999992)
+size = Vector3(3, 2, 2)
+
+[node name="Storage" type="CSGCombiner3D" parent="." unique_id=887753856]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 7)
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Storage" unique_id=1812096255]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.8067813, -0.5)
+size = Vector3(2, 6, 8)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Storage" unique_id=397202424]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1.9708066, -0.55947876)
+operation = 2
+size = Vector3(2, 0.44482422, 7.4922485)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Storage" unique_id=1436664193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.17136812, -0.55947876)
+operation = 2
+size = Vector3(2, 2.7814941, 7.4922485)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Storage" unique_id=683245588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.6352725, -0.55947876)
+operation = 2
+size = Vector3(2, 2.4501953, 7.4922485)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="Storage2" type="CSGCombiner3D" parent="." unique_id=251093636]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 7)
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Storage2" unique_id=2059356428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.8067813, -0.5)
+size = Vector3(2, 6, 8)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Storage2" unique_id=412771438]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1.9708066, -0.55947876)
+operation = 2
+size = Vector3(2, 0.44482422, 7.4922485)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Storage2" unique_id=1624322770]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.17136812, -0.55947876)
+operation = 2
+size = Vector3(2, 2.7814941, 7.4922485)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Storage2" unique_id=1304724468]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.6352725, -0.55947876)
+operation = 2
+size = Vector3(2, 2.4501953, 7.4922485)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=2057193850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2.5, 5.5)
+material_override = SubResource("StandardMaterial3D_uo7di")
+use_collision = true
+size = Vector3(1, 2, 4)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=1030153920]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2.5, 9.5)
+use_collision = true
+size = Vector3(1, 2, 2)
+material = SubResource("StandardMaterial3D_kn06e")
+
+[node name="Desk" type="CSGCombiner3D" parent="." unique_id=1559477454]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 4)
+use_collision = true
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Desk" unique_id=1084450982]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.64230347)
+size = Vector3(5, 2, 1.7153931)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Desk" unique_id=869886729]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.068603516, -0.6734314, -0.62361145)
+operation = 2
+size = Vector3(4.7456055, 1.6531372, 1.7527771)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=463275794]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.05011, -0.24505615, 11.259827)
+size = Vector3(4.679077, 0.5098877, 1.5196533)
+material = SubResource("StandardMaterial3D_52c3i")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=1609246532]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.889648, 0.049972773, 11.259827)
+size = Vector3(1, 0.5098877, 1.5196533)
+material = SubResource("StandardMaterial3D_tvoc7")
+
+[node name="GlobalLights" type="Node3D" parent="." unique_id=1378103518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+visible = false
+
+[node name="Buzzlights" type="CSGCombiner3D" parent="GlobalLights" unique_id=1507453822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 13, -3)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="GlobalLights/Buzzlights" unique_id=313006152]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49950027, 1.5)
+size = Vector3(1, 0.001, 42)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="GlobalLights/Buzzlights" unique_id=287474927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 22.4995)
+size = Vector3(1, 2, 0.001)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="GlobalLights/Buzzlights" unique_id=356990274]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -19.5005)
+size = Vector3(1, 2, 0.001)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="GlobalLights/Buzzlights" unique_id=581338710]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -1, 21)
+shadow_enabled = true
+spot_range = 21.752922
+spot_angle = 54.628582
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="GlobalLights/Buzzlights" unique_id=84623746]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -1, 10)
+shadow_enabled = true
+spot_range = 21.752922
+spot_angle = 54.628582
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="GlobalLights/Buzzlights" unique_id=803911922]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -1, 0)
+shadow_enabled = true
+spot_range = 21.752922
+spot_angle = 54.628582
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="GlobalLights/Buzzlights" unique_id=1761449534]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -1, -9)
+shadow_enabled = true
+spot_range = 21.752922
+spot_angle = 54.628582
+
+[node name="SpotLight3D9" type="SpotLight3D" parent="GlobalLights/Buzzlights" unique_id=1700149508]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -1, -18)
+shadow_enabled = true
+spot_range = 21.752922
+spot_angle = 54.628582
+
+[node name="Buzzlights2" type="CSGCombiner3D" parent="GlobalLights" unique_id=1339835125]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 13, -3)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="GlobalLights/Buzzlights2" unique_id=568559057]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49950027, 1.5)
+size = Vector3(1, 0.001, 42)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="GlobalLights/Buzzlights2" unique_id=2124643524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 22.4995)
+size = Vector3(1, 2, 0.001)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="GlobalLights/Buzzlights2" unique_id=1187284737]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -19.5005)
+size = Vector3(1, 2, 0.001)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="GlobalLights/Buzzlights2" unique_id=1353926359]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -1, 21)
+shadow_enabled = true
+spot_range = 21.752922
+spot_angle = 54.628582
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="GlobalLights/Buzzlights2" unique_id=203826136]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -1, 10)
+shadow_enabled = true
+spot_range = 21.752922
+spot_angle = 54.628582
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="GlobalLights/Buzzlights2" unique_id=566943637]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -1, 0)
+shadow_enabled = true
+spot_range = 21.752922
+spot_angle = 54.628582
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="GlobalLights/Buzzlights2" unique_id=1755678477]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -1, -9)
+shadow_enabled = true
+spot_range = 21.752922
+spot_angle = 54.628582
+
+[node name="SpotLight3D9" type="SpotLight3D" parent="GlobalLights/Buzzlights2" unique_id=2004115511]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -1, -18)
+shadow_enabled = true
+spot_range = 21.752922
+spot_angle = 54.628582
+
+[node name="OmniLight3D" type="OmniLight3D" parent="GlobalLights" unique_id=803887612]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5, 27)
+shadow_enabled = true
+omni_range = 11.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="GlobalLights" unique_id=1240806387]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 5, 26)
+shadow_enabled = true
+omni_range = 11.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="GlobalLights" unique_id=1983850631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 5, 27)
+shadow_enabled = true
+omni_range = 11.0
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="GlobalLights" unique_id=2042643807]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 11, 4)
+omni_range = 7.0
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="GlobalLights" unique_id=2118495050]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 11, -7)
+omni_range = 7.0
+
+[node name="OmniLight3D6" type="OmniLight3D" parent="GlobalLights" unique_id=295182913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 11, -14)
+omni_range = 7.0
+
+[node name="OmniLight3D7" type="OmniLight3D" parent="GlobalLights" unique_id=497270935]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 11, -21)
+omni_range = 7.0
+
+[node name="OmniLight3D8" type="OmniLight3D" parent="GlobalLights" unique_id=1161384584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, -32)
+omni_range = 9.0
+
+[node name="FridgeLight" type="OmniLight3D" parent="." unique_id=769921054]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.89296, 2.7147403, -9.065679)
+visible = false
+light_color = Color(0, 1, 1, 1)
+shadow_enabled = true
+omni_range = 7.1407037
+
+[node name="FridgeLight2" type="OmniLight3D" parent="." unique_id=273088822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.89296, 2.7147403, -22.802359)
+visible = false
+light_color = Color(0, 1, 1, 1)
+shadow_enabled = true
+omni_range = 7.1407037
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="." unique_id=794607897]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.124315, 9.211548, -45.6958)
+size = Vector3(2, 3.732666, 0.39160156)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="TheBrew2" type="Node3D" parent="." unique_id=1497879643]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.165894, 0, -26)
+
+[node name="TheMixer" type="CSGCombiner3D" parent="TheBrew2" unique_id=1465712798]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08689964, 15)
+use_collision = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="TheBrew2/TheMixer" unique_id=766912835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8291483, 0)
+radius = 2.0
+height = 1.9316406
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew2/TheMixer" unique_id=1825152650]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93309116, 0)
+operation = 2
+radius = 1.8999023
+height = 1.7237549
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew2/TheMixer" unique_id=987686002]
+transform = Transform3D(1, 0, 0, 0, 0.68580246, 0.7277877, 0, -0.7277877, 0.68580246, 0, 3.242144, -0.5263634)
+radius = 2.0
+height = 0.001
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="TheBrew2/TheMixer" unique_id=1962648878]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1, -1.9198303)
+height = 0.32537842
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="TheBrew2/TheMixer" unique_id=1422037421]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5005002, 1.4001884, -2.5)
+size = Vector3(0.001, 3, 2)
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="TheBrew2/TheMixer" unique_id=1267552004]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 0.60640526, -2.4948416)
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="TheBrew2/TheMixer" unique_id=302992706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, -2.4948416)
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="TheFurnace" type="CSGCombiner3D" parent="TheBrew2" unique_id=537788006]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+use_collision = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="TheBrew2/TheFurnace" unique_id=253950881]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.855432, 0)
+radius = 2.0
+height = 6.0
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew2/TheFurnace" unique_id=1967894291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9482055, 0)
+operation = 2
+radius = 1.9462891
+height = 5.814453
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew2/TheFurnace" unique_id=1375335688]
+transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, -0.5467479, 7.2477536, 0)
+radius = 2.0
+height = 0.001
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="TheBrew2/TheFurnace" unique_id=234053491]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1, 2.0801697)
+height = 0.32537842
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="TheBrew2/TheFurnace" unique_id=1444627841]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1, -1.9198303)
+height = 0.32537842
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="TheBrew2/TheFurnace" unique_id=1108135056]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 3, 2.0801697)
+height = 0.32537842
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="TheBrew2/TheFurnace" unique_id=1282231475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5005002, 1.4001884, -2.5)
+size = Vector3(0.001, 3, 2)
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="TheBrew2/TheFurnace" unique_id=1643007406]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8797913, 2.6984863, 0.016143799)
+size = Vector3(0.3163452, 6.3969727, 1.3323364)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="TheBrew2/TheFurnace" unique_id=1010850897]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 0.60640526, -2.4948416)
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="TheBrew2/TheFurnace" unique_id=980350001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, -2.4948416)
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="TheBrew2/TheFurnace" unique_id=1339012431]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.9364316, -2.054018)
+size = Vector3(0.22271729, 0.14477539, 0.44970703)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="TheBrew2/TheFurnace" unique_id=720749681]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.9364316, -2.8196564)
+size = Vector3(0.22271729, 0.14477539, 0.44970703)
+
+[node name="TheCompressor" type="CSGCombiner3D" parent="TheBrew2" unique_id=1566310296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.1770687)
+use_collision = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="TheBrew2/TheCompressor" unique_id=1583838611]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.576535, 0)
+radius = 1.6464844
+height = 5.5
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="TheBrew2/TheCompressor" unique_id=356328943]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.028381348, 1, -3.500002)
+size = Vector3(2.7283936, 3, 6)
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew2/TheCompressor" unique_id=1218761753]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.533347, 0)
+radius = 1.4941406
+height = 0.59472656
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="TheBrew2/TheCompressor" unique_id=180982945]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.020507813, 0.487854, -7.1812763)
+size = Vector3(2.71875, 1.3946533, 1.3625488)
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="TheBrew2/TheCompressor" unique_id=282887321]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0234375, 0.42581177, -7.316164)
+operation = 2
+size = Vector3(2.40625, 1.2705688, 1.6323242)
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew2/TheCompressor" unique_id=1228625]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2, -7.1265774)
+radius = 0.096191406
+height = 1.2666016
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="TheBrew2/TheCompressor" unique_id=1935513365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8428893, -7.6625805)
+radius = 0.072753906
+height = 0.26818848
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="TheBrew2/TheCompressor" unique_id=1260759514]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8428893, -7.4208126)
+radius = 0.072753906
+height = 0.26818848
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="TheBrew2/TheCompressor" unique_id=250022249]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8428893, -7.186796)
+radius = 0.072753906
+height = 0.26818848
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="TheBrew2/TheCompressor" unique_id=484147529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8428893, -6.9438343)
+radius = 0.072753906
+height = 0.26818848
+
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="TheBrew2/TheCompressor" unique_id=133913808]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8428893, -6.6920223)
+radius = 0.072753906
+height = 0.26818848
+
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="TheBrew2/TheCompressor" unique_id=488732817]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1, 1.6999283)
+height = 0.32537842
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="TheBrew2/TheCompressor" unique_id=735732849]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 3, 1.6999283)
+height = 0.32537842
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="TheBrew2/TheCompressor" unique_id=286078237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5005002, 1.4001884, 1.4999981)
+size = Vector3(0.001, 3, 2)
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="TheBrew2/TheCompressor" unique_id=777705087]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 0.60640526, 1.5595646)
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="TheBrew2/TheCompressor" unique_id=1010004611]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, 1.5595646)
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="Desk2" type="CSGCombiner3D" parent="." unique_id=101342608]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 1, -39.545456)
+use_collision = true
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Desk2" unique_id=1917822691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.64230347)
+size = Vector3(9, 2, 1.7153931)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Desk2" unique_id=1970730980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.021118164, -0.6734314, -0.62361145)
+operation = 2
+size = Vector3(8.510498, 1.6531372, 1.7527771)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=570534906]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -44.69309)
+use_collision = true
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1524072811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.052978516, -0.064453125, 0.3576088)
+size = Vector3(2.0942383, 0.234375, 2.3290405)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="CSGCombiner3D" unique_id=691180812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.052978516, 1.1958556, -0.59968185)
+size = Vector3(2.0942383, 2.548584, 0.41445923)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="." unique_id=1384162939]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -52)
+use_collision = true
+size = Vector3(9, 1, 5)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="TheRestocker" type="CSGCombiner3D" parent="." unique_id=1545574527]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.473132, 0, 0.11396766)
+use_collision = true
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="TheRestocker" unique_id=1862213288]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.026867867, 0.3035549, -0.11396766)
+material_override = ExtResource("3_p70al")
+size = Vector3(2, 1, 3)
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="TheRestocker" unique_id=25753877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0016355515, 0.42904317, -0.13465858)
+operation = 2
+size = Vector3(1.8287354, 0.74902344, 2.7418213)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="TheRestocker" unique_id=385398297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+light_color = Color(0.105882354, 1, 1, 1)
+light_energy = 0.208
+
+[node name="TheEraser" type="CSGCombiner3D" parent="." unique_id=715549625]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.473132, 0, -3.8860323)
+use_collision = true
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="TheEraser" unique_id=1975447228]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.026867867, 0.3035549, -0.11396766)
+material_override = ExtResource("3_p70al")
+size = Vector3(2, 1, 3)
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="TheEraser" unique_id=2040317162]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0016355515, 0.42904317, -0.13465858)
+operation = 2
+size = Vector3(1.8287354, 0.74902344, 2.7418213)
+material = ExtResource("3_p70al")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="TheEraser" unique_id=600570750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.208
+
+[node name="Door" type="Node3D" parent="." unique_id=1737867603]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3229523, 0, 2.2457469)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Door" unique_id=2126420718]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3149753, 2.109344, -0.017652035)
+size = Vector3(2.815796, 4.541992, 0.16345215)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="Door2" type="Node3D" parent="." unique_id=1985652496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.905774, 0, 1.9268785)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Door2" unique_id=172375637]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4003634, 2.109344, -0.060086727)
+size = Vector3(2.8764648, 4.541992, 0.013763428)
+material = SubResource("StandardMaterial3D_p70al")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="." unique_id=1438442180]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5005, 3, -23)
+size = Vector3(0.001, 7, 11)
+material = SubResource("StandardMaterial3D_2a63y")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="." unique_id=28230619]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5005, 3, -9)
+size = Vector3(0.001, 7, 11)
+material = SubResource("StandardMaterial3D_2a63y")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="." unique_id=2115893081]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.438232, 2.2785172, -3.039795)
+size = Vector3(0.123535156, 0.4595337, 0.51220703)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="." unique_id=2007444133]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.438232, 2.2785172, -17.039795)
+size = Vector3(0.123535156, 0.4595337, 0.51220703)
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1664656155]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.500439, 2.4366035, 0)
+billboard = 1
+text = "Restock"
+
+[node name="Destroy" type="Label3D" parent="." unique_id=1402227775]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.500439, 2.4366035, -3.8324614)
+billboard = 1
+text = "Destroy"
+
+[node name="TheBrew3" type="Node3D" parent="." unique_id=1195008245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.834106, 0, -26)
+
+[node name="TheMixer" type="CSGCombiner3D" parent="TheBrew3" unique_id=1136371556]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08689964, 15)
+use_collision = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="TheBrew3/TheMixer" unique_id=1164369671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8291483, 0)
+radius = 2.0
+height = 1.9316406
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew3/TheMixer" unique_id=301959473]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93309116, 0)
+operation = 2
+radius = 1.8999023
+height = 1.7237549
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew3/TheMixer" unique_id=1545750768]
+transform = Transform3D(1, 0, 0, 0, 0.68580246, 0.7277877, 0, -0.7277877, 0.68580246, 0, 3.242144, -0.5263634)
+radius = 2.0
+height = 0.001
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="TheBrew3/TheMixer" unique_id=1785404822]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1, -1.9198303)
+height = 0.32537842
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="TheBrew3/TheMixer" unique_id=678146322]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5005002, 1.4001884, -2.5)
+size = Vector3(0.001, 3, 2)
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="TheBrew3/TheMixer" unique_id=734772930]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 0.60640526, -2.4948416)
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="TheBrew3/TheMixer" unique_id=818516380]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, -2.4948416)
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="TheFurnace" type="CSGCombiner3D" parent="TheBrew3" unique_id=1138814084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+use_collision = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="TheBrew3/TheFurnace" unique_id=1337999253]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.855432, 0)
+radius = 2.0
+height = 6.0
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew3/TheFurnace" unique_id=1209958079]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9482055, 0)
+operation = 2
+radius = 1.9462891
+height = 5.814453
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew3/TheFurnace" unique_id=53843899]
+transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, -0.5467479, 7.2477536, 0)
+radius = 2.0
+height = 0.001
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="TheBrew3/TheFurnace" unique_id=593227649]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1, 2.0801697)
+height = 0.32537842
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="TheBrew3/TheFurnace" unique_id=294927638]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1, -1.9198303)
+height = 0.32537842
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="TheBrew3/TheFurnace" unique_id=609151478]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 3, 2.0801697)
+height = 0.32537842
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="TheBrew3/TheFurnace" unique_id=885944274]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5005002, 1.4001884, -2.5)
+size = Vector3(0.001, 3, 2)
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="TheBrew3/TheFurnace" unique_id=1841418680]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8797913, 2.6984863, 0.016143799)
+size = Vector3(0.3163452, 6.3969727, 1.3323364)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="TheBrew3/TheFurnace" unique_id=1371467754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 0.60640526, -2.4948416)
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="TheBrew3/TheFurnace" unique_id=743140240]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, -2.4948416)
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="TheBrew3/TheFurnace" unique_id=1151913504]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.9364316, -2.054018)
+size = Vector3(0.22271729, 0.14477539, 0.44970703)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="TheBrew3/TheFurnace" unique_id=711772817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.9364316, -2.8196564)
+size = Vector3(0.22271729, 0.14477539, 0.44970703)
+
+[node name="TheCompressor" type="CSGCombiner3D" parent="TheBrew3" unique_id=1235362717]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.1770687)
+use_collision = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="TheBrew3/TheCompressor" unique_id=1091658871]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.576535, 0)
+radius = 1.6464844
+height = 5.5
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="TheBrew3/TheCompressor" unique_id=1923231964]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.028381348, 1, -3.500002)
+size = Vector3(2.7283936, 3, 6)
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew3/TheCompressor" unique_id=1020609066]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.533347, 0)
+radius = 1.4941406
+height = 0.59472656
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="TheBrew3/TheCompressor" unique_id=1581499823]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.020507813, 0.487854, -7.1812763)
+size = Vector3(2.71875, 1.3946533, 1.3625488)
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="TheBrew3/TheCompressor" unique_id=546800306]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0234375, 0.42581177, -7.316164)
+operation = 2
+size = Vector3(2.40625, 1.2705688, 1.6323242)
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew3/TheCompressor" unique_id=1091703833]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2, -7.1265774)
+radius = 0.096191406
+height = 1.2666016
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="TheBrew3/TheCompressor" unique_id=1475794950]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8428893, -7.6625805)
+radius = 0.072753906
+height = 0.26818848
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="TheBrew3/TheCompressor" unique_id=1211998620]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8428893, -7.4208126)
+radius = 0.072753906
+height = 0.26818848
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="TheBrew3/TheCompressor" unique_id=293829245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8428893, -7.186796)
+radius = 0.072753906
+height = 0.26818848
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="TheBrew3/TheCompressor" unique_id=1161395061]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8428893, -6.9438343)
+radius = 0.072753906
+height = 0.26818848
+
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="TheBrew3/TheCompressor" unique_id=1897499299]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8428893, -6.6920223)
+radius = 0.072753906
+height = 0.26818848
+
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="TheBrew3/TheCompressor" unique_id=737533705]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1, 1.6999283)
+height = 0.32537842
+material = ExtResource("3_p70al")
+
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="TheBrew3/TheCompressor" unique_id=1557016670]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 3, 1.6999283)
+height = 0.32537842
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="TheBrew3/TheCompressor" unique_id=529724174]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5005002, 1.4001884, 1.4999981)
+size = Vector3(0.001, 3, 2)
+material = ExtResource("3_p70al")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="TheBrew3/TheCompressor" unique_id=1149866261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 0.60640526, 1.5595646)
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="TheBrew3/TheCompressor" unique_id=984827837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, 1.5595646)
+size = Vector3(0.22271729, 0.44091797, 0.44970703)

@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://p25xlgb12njr"]
+
+[ext_resource type="Script" uid="uid://qhbujgw7g6jl" path="res://scripts/main_menu.gd" id="1_1ehe0"]
+[ext_resource type="Texture2D" uid="uid://c3i87hpjm3i3l" path="res://BreakingSaliva.png" id="1_28flt"]
+[ext_resource type="AudioStream" uid="uid://b538m0u6jdmfn" path="res://audio/MUSIC/better-call-saul-theme.mp3" id="2_48xlc"]
+
+[node name="MainMenu" type="Control" unique_id=2002771462]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1ehe0")
+
+[node name="Wallapaper" type="TextureRect" parent="." unique_id=1792716515]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_28flt")
+
+[node name="Label" type="Label" parent="." unique_id=561507128]
+layout_mode = 0
+offset_right = 454.0
+offset_bottom = 87.0
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/font_size = 56
+text = "BREAKING SALVIA"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=586247844]
+stream = ExtResource("2_48xlc")
+autoplay = true
+
+[node name="PLAY" type="Button" parent="." unique_id=1741166267]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.030000001
+anchor_top = 0.162
+anchor_right = 0.19000001
+anchor_bottom = 0.31800002
+offset_left = -0.5600014
+offset_top = 0.024002075
+offset_right = 0.11997986
+offset_bottom = -0.06401062
+text = "PLAY"
+
+[node name="Label2" type="Label" parent="." unique_id=2001305096]
+layout_mode = 0
+offset_left = 242.0
+offset_top = 81.0
+offset_right = 722.0
+offset_bottom = 168.0
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/font_size = 13
+text = "DVININORUM"
+
+[connection signal="pressed" from="PLAY" to="." method="_on_play_pressed"]

@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://c8u5pdvvql38l"]
+
+[ext_resource type="Script" uid="uid://ba026xqj2yndb" path="res://scripts/Player.gd" id="1_p0vlq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v6fml"]
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_p0vlq"]
+height = 1.8
+
+[node name="Player" type="CharacterBody3D" unique_id=1634992471]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+script = ExtResource("1_p0vlq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=951538756]
+shape = SubResource("CapsuleShape3D_v6fml")
+
+[node name="Head" type="Node3D" parent="." unique_id=1725980991]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1649323720]
+
+[node name="BodyMesh" type="MeshInstance3D" parent="." unique_id=765092102]
+mesh = SubResource("CapsuleMesh_p0vlq")
+
+[node name="GUI" type="Control" parent="." unique_id=263743720]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VirtualJoystick" type="VirtualJoystick" parent="GUI" unique_id=881079138]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.148
+anchor_top = 0.725
+anchor_right = 0.18200001
+anchor_bottom = 0.78700006
+offset_left = -0.4960022
+offset_top = 0.19998169
+offset_right = 0.33598328
+offset_bottom = 0.023956299
+action_left = &"move_left"
+action_right = &"move_right"
+action_up = &"move_forward"
+action_down = &"move_back"
