@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ckbldypnqt3rd"]
+
+[ext_resource type="Texture2D" uid="uid://xm31kl0wlxd4" path="res://images/SalviaLeaf.png" id="1_lx2eu"]
+[ext_resource type="Script" uid="uid://c8rxp5p3me7e4" path="res://scripts/PhysicalIngredients.gd" id="1_n3rrn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n3rrn"]
+albedo_texture = ExtResource("1_lx2eu")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8v4ix"]
+
+[node name="Salvia" type="RigidBody3D" unique_id=1514757603]
+script = ExtResource("1_n3rrn")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=268935573]
+material_override = SubResource("StandardMaterial3D_n3rrn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1705333244]
+shape = SubResource("BoxShape3D_8v4ix")

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ConsumableIngredient" format=3 uid="uid://bupa7h4kg0weg"]
+
+[ext_resource type="Script" uid="uid://b0l4x53ywf8gn" path="res://scripts/SpawnIngredient.gd" id="1_yb8px"]
+
+[resource]
+script = ExtResource("1_yb8px")
+item_name = "Furnace Fuel"
+metadata/_custom_type_script = "uid://b0l4x53ywf8gn"

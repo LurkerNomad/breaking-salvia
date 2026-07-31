@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Ingredient" format=3 uid="uid://dqvhbvl5ic2qr"]
+
+[ext_resource type="PackedScene" uid="uid://ckbldypnqt3rd" path="res://Models/IngredientModels/Salvia.tscn" id="1_v714k"]
+[ext_resource type="Script" uid="uid://e75hlbe8u34k" path="res://scripts/Ingredients.gd" id="2_ldfnp"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_ldfnp")
+item_name = "Salvia"
+physical_scene = ExtResource("1_v714k")
+metadata/_custom_type_script = "uid://e75hlbe8u34k"

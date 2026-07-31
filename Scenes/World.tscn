@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://d2aomnfq45764" path="res://scripts/World.gd" id="1_kqs1s"]
 [ext_resource type="Texture2D" uid="uid://ct215eufkx1hg" path="res://images/LaboratorySkyBox.png" id="2_j0p05"]
+[ext_resource type="Texture2D" uid="uid://xm31kl0wlxd4" path="res://images/SalviaLeaf.png" id="3_45d1s"]
 [ext_resource type="Material" uid="uid://ktv21jewpxdq" path="res://Textures/Metal.tres" id="3_p70al"]
 [ext_resource type="Texture2D" uid="uid://cqfi56r8hsewb" path="res://images/LightBulb.png" id="4_45d1s"]
 [ext_resource type="Texture2D" uid="uid://xy3bkjalnlmi" path="res://images/Vents.jpg" id="5_y7y61"]
+[ext_resource type="PackedScene" uid="uid://ckbldypnqt3rd" path="res://Models/IngredientModels/Salvia.tscn" id="7_y7y61"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ggkii"]
 panorama = ExtResource("2_j0p05")
@@ -17,6 +19,9 @@ background_mode = 2
 sky = SubResource("Sky_2a63y")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gjpho"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y7y61"]
+albedo_texture = ExtResource("3_45d1s")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q2d71"]
 transparency = 1
@@ -56,6 +61,7 @@ material = SubResource("StandardMaterial3D_gjpho")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Warehouse" unique_id=1201177291]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9916382, 6.82959, -21.99466)
+material_override = SubResource("StandardMaterial3D_y7y61")
 operation = 2
 size = Vector3(20.846802, 14, 47.6369)
 material = SubResource("StandardMaterial3D_gjpho")
@@ -1183,3 +1189,6 @@ size = Vector3(0.22271729, 0.44091797, 0.44970703)
 [node name="CSGBox3D6" type="CSGBox3D" parent="TheBrew3/TheCompressor" unique_id=984827837]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, 1.5595646)
 size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="Salvia" parent="." unique_id=1514757603 instance=ExtResource("7_y7y61")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8934498, 0.32959008, -6.9531713)
