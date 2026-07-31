@@ -9,12 +9,16 @@ const MOUSE_SENS = 0.002
 @onready var camera    : Camera3D         = $Head/Camera3D
 @onready var body      : MeshInstance3D   = $BodyMesh
 @onready var col_shape : CollisionShape3D = $CollisionShape3D
+@onready var interact_ray : RayCast3D     = $Head/Camera3D/RayCast3D
 
 var char_type           := ""
 var _is_local           := false
 var _target_pos         := Vector3.ZERO
 var _target_body_rot_y  := 0.0          # ← new: left/right yaw
 var _target_head_rot    := Vector3.ZERO
+
+const INTERACT_RANGE := 3.0
+var held_item: PhysicalIngredient = null   # locally tracked for UI purposes only; truth lives on the server
 
 
 func _ready():
@@ -102,6 +106,70 @@ func _unhandled_input(event):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
+# _input runs BEFORE GUI Controls get a chance to consume the event, unlike
+# _unhandled_input (which only fires for events the GUI didn't eat first).
+# Interact/throw/scroll live here so a full-rect Control (e.g. your
+# VirtualJoystick or Crossair overlay) can't silently swallow them.
+func _input(event):
+	if not is_multiplayer_authority():
+		return
+
+	# --- Mixer Tablet & General Object Interaction ---
+	if interact_ray.is_colliding():
+		var collider := interact_ray.get_collider()
+
+		if not is_instance_valid(collider):
+			return
+
+		var hit_point := interact_ray.get_collision_point()
+
+		# Scroll Wheel handling for Tablet when not holding an item
+		var scroll_step := 0.0
+		if event is InputEventMouseButton and event.pressed:
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				scroll_step = -1.0
+			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				scroll_step = 1.0
+
+		var tablet := get_tree().get_first_node_in_group("mixer_tablet") as MixerTablet
+
+		if tablet and (
+			collider.is_in_group("mix_button")
+			or collider.is_in_group("transfer_button")
+		):
+			var is_click: bool = event.is_action_pressed("interact")
+
+			if is_click or scroll_step != 0.0:
+				tablet.handle_ray_interaction(collider, hit_point, is_click, scroll_step)
+
+				if is_click:
+					return
+
+	# --- Pickup / Drop / Throw Logic ---
+	if event.is_action_pressed("interact"):
+		if held_item:
+			_do_drop()
+		else:
+			_try_pickup()
+
+	if event.is_action_pressed("throw"):
+		if held_item:
+			_do_throw()
+
+	if held_item and event is InputEventMouseButton and event.pressed:
+		var step := 0.0
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			step = 0.25
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			step = -0.25
+		if step != 0.0:
+			var new_dist: float = held_item.carry_distance + step
+			if multiplayer.is_server():
+				held_item.set_carry_distance(int(name), new_dist)
+			else:
+				_request_carry_distance.rpc_id(1, held_item.get_path(), new_dist)
+
+
 func _physics_process(delta):
 	if not is_multiplayer_authority():
 		return
@@ -126,3 +194,104 @@ func _sync_state(pos: Vector3, body_rot_y: float, head_rot: Vector3):  # ← add
 	_target_pos        = pos
 	_target_body_rot_y = body_rot_y
 	_target_head_rot   = head_rot
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Pickup / carry / throw
+# Client raycasts locally to find the candidate (cheap, instant feedback),
+# then asks the server to actually grant the pickup. Server has final say.
+# ─────────────────────────────────────────────────────────────────────────────
+func _try_pickup() -> void:
+	if not interact_ray.is_colliding():
+		return
+
+	var candidate = interact_ray.get_collider()
+
+	if not is_instance_valid(candidate):
+		return
+
+	if not (candidate is PhysicalIngredient):
+		return
+
+	if multiplayer.is_server():
+		# We ARE the server (host) — run the logic directly. Calling an
+		# "any_peer"/"call_remote" RPC targeting ourselves is illegal in Godot,
+		# so hosts must never rpc_id(1, ...) to themselves.
+		_do_pickup(int(name), candidate)
+	else:
+		_request_pickup.rpc_id(1, candidate.get_path())
+
+
+func _do_drop() -> void:
+	if multiplayer.is_server():
+		if held_item:
+			held_item.request_drop()
+	else:
+		_request_drop.rpc_id(1)
+
+
+func _do_throw() -> void:
+	if multiplayer.is_server():
+		if held_item:
+			held_item.request_throw(self)
+	else:
+		_request_throw.rpc_id(1)
+
+
+## Shared pickup logic — called either directly (host) or from the RPC below (clients).
+func _do_pickup(requester_id: int, item: PhysicalIngredient) -> void:
+	var requester := get_tree().root.get_node_or_null("World/" + str(requester_id)) as Node3D
+	if requester == null:
+		return
+	if requester.global_position.distance_to(item.global_position) > INTERACT_RANGE * 1.5:
+		return
+	# Attach to the CAMERA, not the player root — the root only tracks yaw,
+	# so carrying relative to it ignored up/down look and floated in the
+	# wrong spot. The camera transform includes head pitch too.
+	var attach_node := requester.get_node_or_null("Head/Camera3D") as Node3D
+	if attach_node == null:
+		attach_node = requester  # fallback, shouldn't normally happen
+	item.request_pickup(requester_id, attach_node)
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func _request_pickup(item_path: NodePath) -> void:
+	if not multiplayer.is_server():
+		return
+	var requester_id := multiplayer.get_remote_sender_id()
+	var item := get_node_or_null(item_path) as PhysicalIngredient
+	if item == null:
+		return
+	_do_pickup(requester_id, item)
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func _request_drop() -> void:
+	if not multiplayer.is_server():
+		return
+	if held_item:
+		held_item.request_drop()
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func _request_throw() -> void:
+	if not multiplayer.is_server():
+		return
+	if held_item:
+		held_item.request_throw(self)
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func _request_carry_distance(item_path: NodePath, new_distance: float) -> void:
+	if not multiplayer.is_server():
+		return
+	var requester_id := multiplayer.get_remote_sender_id()
+	var item := get_node_or_null(item_path) as PhysicalIngredient
+	if item == null:
+		return
+	item.set_carry_distance(requester_id, new_distance)
+
+
+# held_item is now kept in sync automatically by PhysicalIngredient's
+# _set_holder_tracking (called from its call_local confirm RPCs) — no manual
+# signal wiring needed here.

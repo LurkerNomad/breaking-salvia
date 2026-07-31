@@ -1,3 +1,25 @@
 [gd_scene format=3 uid="uid://3xl337lkk4n0"]
 
-[node name="Water" type="Node3D" unique_id=360556729]
+[ext_resource type="Texture2D" uid="uid://dvi07x60cfclx" path="res://images/Water.png" id="1_lnskl"]
+[ext_resource type="Script" uid="uid://c8rxp5p3me7e4" path="res://scripts/PhysicalIngredients.gd" id="1_ufybt"]
+[ext_resource type="Resource" uid="uid://cuxmhdlcejfh0" path="res://Ingredients/water.tres" id="2_qsery"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ggkii"]
+albedo_texture = ExtResource("1_lnskl")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_oae41"]
+material = SubResource("StandardMaterial3D_ggkii")
+height = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_oae41"]
+height = 1.0
+
+[node name="Water" type="RigidBody3D" unique_id=1638821132]
+script = ExtResource("1_ufybt")
+ingredient_type = ExtResource("2_qsery")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1692542451]
+mesh = SubResource("CylinderMesh_oae41")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=71263201]
+shape = SubResource("CylinderShape3D_oae41")

@@ -6,7 +6,15 @@
 [ext_resource type="Material" uid="uid://ktv21jewpxdq" path="res://Textures/Metal.tres" id="3_p70al"]
 [ext_resource type="Texture2D" uid="uid://cqfi56r8hsewb" path="res://images/LightBulb.png" id="4_45d1s"]
 [ext_resource type="Texture2D" uid="uid://xy3bkjalnlmi" path="res://images/Vents.jpg" id="5_y7y61"]
+[ext_resource type="Script" uid="uid://ca1xe6x12b3fv" path="res://scripts/Mixer.gd" id="7_ti1bm"]
+[ext_resource type="Script" uid="uid://o70wrief25ns" path="res://scripts/ItemReciever.gd" id="7_uo7di"]
 [ext_resource type="PackedScene" uid="uid://ckbldypnqt3rd" path="res://Models/IngredientModels/Salvia.tscn" id="7_y7y61"]
+[ext_resource type="Script" uid="uid://4sq6gou4tsf3" path="res://scripts/Recipes.gd" id="8_8l3nt"]
+[ext_resource type="Script" uid="uid://dlux56lfnyyxr" path="res://scripts/mixer_tablet.gd" id="8_ti1bm"]
+[ext_resource type="Script" uid="uid://e75hlbe8u34k" path="res://scripts/Ingredients.gd" id="9_kn06e"]
+[ext_resource type="Resource" uid="uid://b4kawimmvfgx1" path="res://Recipes/minty_salvia.tres" id="9_kwl8l"]
+[ext_resource type="PackedScene" uid="uid://3xl337lkk4n0" path="res://Models/IngredientModels/Water.tscn" id="10_kn06e"]
+[ext_resource type="Resource" uid="uid://c7kfcl2q5rk5a" path="res://Recipes/uselessgarb.tres" id="10_kwl8l"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ggkii"]
 panorama = ExtResource("2_j0p05")
@@ -41,9 +49,42 @@ albedo_texture = ExtResource("5_y7y61")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvoc7"]
 albedo_color = Color(1, 0, 0, 1)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_oae41"]
+height = 1.3713379
+radius = 1.7504883
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kn06e"]
+viewport_path = NodePath("TheBrew2/TheMixer/MixerTablet/MixerInterface")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oae41"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_kn06e")
+uv1_triplanar_sharpness = 46.850826
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2a63y"]
 transparency = 1
 albedo_color = Color(1, 1, 1, 0.5372549)
+
+[sub_resource type="Resource" id="Resource_8l3nt"]
+resource_local_to_scene = true
+script = ExtResource("9_kn06e")
+item_name = "Salvia"
+physical_scene = ExtResource("7_y7y61")
+metadata/_custom_type_script = "uid://e75hlbe8u34k"
+
+[sub_resource type="Resource" id="Resource_kwl8l"]
+resource_local_to_scene = true
+script = ExtResource("9_kn06e")
+item_name = "Salvia"
+physical_scene = ExtResource("7_y7y61")
+metadata/_custom_type_script = "uid://e75hlbe8u34k"
+
+[sub_resource type="Resource" id="Resource_xiqgv"]
+resource_local_to_scene = true
+script = ExtResource("9_kn06e")
+item_name = "Salvia"
+physical_scene = ExtResource("7_y7y61")
+metadata/_custom_type_script = "uid://e75hlbe8u34k"
 
 [node name="World" type="Node3D" unique_id=1664425396]
 script = ExtResource("1_kqs1s")
@@ -689,9 +730,15 @@ material = SubResource("StandardMaterial3D_p70al")
 [node name="TheBrew2" type="Node3D" parent="." unique_id=1497879643]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.165894, 0, -26)
 
-[node name="TheMixer" type="CSGCombiner3D" parent="TheBrew2" unique_id=1465712798]
+[node name="TheMixer" type="CSGCombiner3D" parent="TheBrew2" unique_id=1465712798 node_paths=PackedStringArray("item_receiver", "mixer_tablet", "spawn_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08689964, 15)
 use_collision = true
+script = ExtResource("7_ti1bm")
+item_receiver = NodePath("Area3D")
+mixer_tablet = NodePath("MixerTablet")
+spawn_point = NodePath("Marker3D")
+available_recipes = Array[ExtResource("8_8l3nt")]([ExtResource("9_kwl8l")])
+garbage_recipe = ExtResource("10_kwl8l")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="TheBrew2/TheMixer" unique_id=766912835]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8291483, 0)
@@ -722,13 +769,56 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5005002, 1.4001884, -2.5)
 size = Vector3(0.001, 3, 2)
 material = ExtResource("3_p70al")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="TheBrew2/TheMixer" unique_id=1267552004]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 0.60640526, -2.4948416)
-size = Vector3(0.22271729, 0.44091797, 0.44970703)
+[node name="Area3D" type="Area3D" parent="TheBrew2/TheMixer" unique_id=654639706]
+script = ExtResource("7_uo7di")
+accepted_types = Array[String](["Salvia", "Water"])
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="TheBrew2/TheMixer" unique_id=302992706]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, -2.4948416)
-size = Vector3(0.22271729, 0.44091797, 0.44970703)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheBrew2/TheMixer/Area3D" unique_id=270280631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85510254, 0)
+shape = SubResource("CylinderShape3D_oae41")
+
+[node name="MixerTablet" type="CSGBox3D" parent="TheBrew2/TheMixer" unique_id=317231594 node_paths=PackedStringArray("viewport", "ingredients_vbox", "scroll_container", "mix_button_csg", "transfer_button_csg") groups=["mixer_tablet"]]
+transform = Transform3D(1, 8.742277e-08, -8.742279e-08, -8.742278e-08, -1.3113416e-07, -1, -8.7422784e-08, 1, -1.3113414e-07, 2.5112016, 2.3201365, -2.4728088)
+flip_faces = true
+size = Vector3(0.001, 1.6010132, 1)
+material = SubResource("StandardMaterial3D_oae41")
+script = ExtResource("8_ti1bm")
+viewport = NodePath("MixerInterface")
+ingredients_vbox = NodePath("MixerInterface/Control/ScrollContainer/VBoxContainer")
+scroll_container = NodePath("MixerInterface/Control/ScrollContainer")
+mix_button_csg = NodePath("../../MixButton")
+transfer_button_csg = NodePath("../../MixerTranferButton")
+
+[node name="MixerInterface" type="SubViewport" parent="TheBrew2/TheMixer/MixerTablet" unique_id=401154897]
+size = Vector2i(1000, 500)
+
+[node name="Control" type="Control" parent="TheBrew2/TheMixer/MixerTablet/MixerInterface" unique_id=1539986371]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TheBrew2/TheMixer/MixerTablet/MixerInterface/Control" unique_id=1937355648]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TheBrew2/TheMixer/MixerTablet/MixerInterface/Control/ScrollContainer" unique_id=1882035004]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="TheBrew2/TheMixer/MixerTablet/MixerInterface/Control/ScrollContainer/VBoxContainer" unique_id=1746332407]
+layout_mode = 2
+text = "condom"
+horizontal_alignment = 1
+
+[node name="Marker3D" type="Marker3D" parent="TheBrew2/TheMixer" unique_id=116738502]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.0586052)
 
 [node name="TheFurnace" type="CSGCombiner3D" parent="TheBrew2" unique_id=537788006]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
@@ -876,6 +966,16 @@ size = Vector3(0.22271729, 0.44091797, 0.44970703)
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="TheBrew2/TheCompressor" unique_id=1010004611]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, 1.5595646)
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="MixerTranferButton" type="CSGBox3D" parent="TheBrew2" unique_id=1267552004 groups=["transfer_button"]]
+transform = Transform3D(1, 0, -2.7467415e-15, 0, 1, 0, -2.7467415e-15, 0, 1, 2.5994854, 0.5195055, 12.505158)
+use_collision = true
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="MixButton" type="CSGBox3D" parent="TheBrew2" unique_id=302992706 groups=["mix_button"]]
+transform = Transform3D(1, 0, -2.7467415e-15, 0, 1, 0, -2.7467415e-15, 0, 1, 2.5994854, 1.188292, 12.505158)
+use_collision = true
 size = Vector3(0.22271729, 0.44091797, 0.44970703)
 
 [node name="Desk2" type="CSGCombiner3D" parent="." unique_id=101342608]
@@ -1192,3 +1292,18 @@ size = Vector3(0.22271729, 0.44091797, 0.44970703)
 
 [node name="Salvia" parent="." unique_id=1514757603 instance=ExtResource("7_y7y61")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8934498, 0.32959008, -6.9531713)
+ingredient_type = SubResource("Resource_8l3nt")
+
+[node name="Water" parent="." unique_id=1638821132 instance=ExtResource("10_kn06e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.338445, 0.32959032, -6.526579)
+
+[node name="Salvia2" parent="." unique_id=686714035 instance=ExtResource("7_y7y61")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.244205, 0.32959008, -4.100345)
+ingredient_type = SubResource("Resource_kwl8l")
+
+[node name="Water2" parent="." unique_id=591223897 instance=ExtResource("10_kn06e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92314124, 0.32958984, -3.0067525)
+
+[node name="Salvia3" parent="." unique_id=1081635199 instance=ExtResource("7_y7y61")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6586113, 0.32958984, -4.4340997)
+ingredient_type = SubResource("Resource_xiqgv")

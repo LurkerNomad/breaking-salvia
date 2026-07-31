@@ -1,8 +1,14 @@
 [gd_resource type="Resource" script_class="Recipe" format=3 uid="uid://b4kawimmvfgx1"]
 
+[ext_resource type="Texture2D" uid="uid://dpcgcygtsyoft" path="res://images/SalviaFInalRecipie.jpg" id="1_0nuls"]
 [ext_resource type="Script" uid="uid://4sq6gou4tsf3" path="res://scripts/Recipes.gd" id="1_skfs2"]
 
 [resource]
 script = ExtResource("1_skfs2")
 recipe_name = "Minty Salvia"
+recipe_icon = ExtResource("1_0nuls")
+required_ingredients = {
+"Salvia": 3,
+"Water": 2
+}
 metadata/_custom_type_script = "uid://4sq6gou4tsf3"
