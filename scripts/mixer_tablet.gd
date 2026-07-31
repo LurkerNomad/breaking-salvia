@@ -33,7 +33,7 @@ func update_display(contents: Dictionary) -> void:
 		var count: int = contents[item_name]
 		var label := Label.new()
 		label.text = "%s x%d" % [item_name, count]
-		label.add_theme_font_size_override("font_size", 24)
+		label.add_theme_font_size_override("font_size", 64)
 		ingredients_vbox.add_child(label)
 
 

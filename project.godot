@@ -44,6 +44,12 @@ transfer_button=""
 mix_button=""
 mixer_tablet=""
 
+[importer_defaults]
+
+3d_texture={
+&"compress/mode": 0
+}
+
 [input]
 
 move_left={

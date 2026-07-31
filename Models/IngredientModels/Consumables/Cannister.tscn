@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://botdbfpe1x4ms"]
+
+[ext_resource type="Script" uid="uid://c8rxp5p3me7e4" path="res://scripts/PhysicalIngredients.gd" id="1_6qdo5"]
+[ext_resource type="Resource" uid="uid://bupa7h4kg0weg" path="res://Ingredients/fuel.tres" id="2_uptw1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8v4ix"]
+albedo_color = Color(0.09555832, 0.28275627, 0.30534637, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfmpl"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fu1eq"]
+albedo_color = Color(1, 0.34117648, 0, 1)
+
+[node name="Fuel" type="RigidBody3D" unique_id=1256987388]
+continuous_cd = true
+script = ExtResource("1_6qdo5")
+ingredient_type = ExtResource("2_uptw1")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1511332535]
+use_collision = true
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=2054786138]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6293628, 0)
+radius = 0.17529297
+height = 0.060791016
+sides = 16
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=226766222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5468352, 0)
+radius = 0.04736328
+height = 0.13452148
+sides = 16
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=977209218]
+sides = 64
+material = SubResource("StandardMaterial3D_8v4ix")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D" unique_id=1413086261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0076225, 0)
+radial_segments = 64
+material = SubResource("StandardMaterial3D_8v4ix")
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=1256814292]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.14567596, 0.5925352)
+radius = 0.30859375
+height = 0.001
+sides = 16
+material = SubResource("StandardMaterial3D_gfmpl")
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=1203731993]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.14477766, 0.4282428)
+radius = 0.40673828
+height = 0.32537842
+material = SubResource("StandardMaterial3D_fu1eq")

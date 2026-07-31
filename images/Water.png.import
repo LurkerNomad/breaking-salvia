@@ -2,22 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvi07x60cfclx"
-path.s3tc="res://.godot/imported/Water.png-2746fa48c8ae04554bbcf73e7f11bd08.s3tc.ctex"
-path.etc2="res://.godot/imported/Water.png-2746fa48c8ae04554bbcf73e7f11bd08.etc2.ctex"
+uid="uid://c1kv3ko4ekefk"
+path="res://.godot/imported/Water.png-2746fa48c8ae04554bbcf73e7f11bd08.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://images/Water.png"
-dest_files=["res://.godot/imported/Water.png-2746fa48c8ae04554bbcf73e7f11bd08.s3tc.ctex", "res://.godot/imported/Water.png-2746fa48c8ae04554bbcf73e7f11bd08.etc2.ctex"]
+dest_files=["res://.godot/imported/Water.png-2746fa48c8ae04554bbcf73e7f11bd08.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -25,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
