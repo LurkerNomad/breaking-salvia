@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://bqqhoqvh6nqhg"]
+
+[ext_resource type="Script" uid="uid://c8rxp5p3me7e4" path="res://scripts/PhysicalIngredients.gd" id="1_h6ru2"]
+[ext_resource type="Resource" uid="uid://cuxmhdlcejfh0" path="res://Ingredients/water.tres" id="2_bq1h8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d28c4"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.05490196, 0.68235296, 0.09803922, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h6ru2"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="Water" type="RigidBody3D" unique_id=1638821132]
+script = ExtResource("1_h6ru2")
+ingredient_type = ExtResource("2_bq1h8")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=334673916]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=626551275]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1420898, 0)
+radius = 3.0512695
+height = 6.2666016
+sides = 64
+material = SubResource("StandardMaterial3D_d28c4")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=30521483]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.16703, 0)
+radius = 3.2651367
+height = 0.28503418
+sides = 24
+material = SubResource("StandardMaterial3D_d28c4")
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=852694427]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0769086, 0)
+radius = 3.2651367
+height = 0.28503418
+sides = 24
+material = SubResource("StandardMaterial3D_d28c4")
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=525932388]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.8765888, 0)
+radius = 3.2651367
+height = 0.28503418
+sides = 24
+material = SubResource("StandardMaterial3D_d28c4")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=1550834106]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.349348, 1.5863402)
+radius = 0.39501953
+height = 0.10140991
+sides = 16
+material = SubResource("StandardMaterial3D_h6ru2")

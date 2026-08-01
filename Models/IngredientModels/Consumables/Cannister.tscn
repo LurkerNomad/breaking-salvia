@@ -4,13 +4,13 @@
 [ext_resource type="Resource" uid="uid://bupa7h4kg0weg" path="res://Ingredients/fuel.tres" id="2_uptw1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8v4ix"]
-albedo_color = Color(0.09555832, 0.28275627, 0.30534637, 1)
+albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfmpl"]
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fu1eq"]
-albedo_color = Color(1, 0.34117648, 0, 1)
+albedo_color = Color(0.9685872, 5.679429e-06, 7.70092e-07, 1)
 
 [node name="Fuel" type="RigidBody3D" unique_id=1256987388]
 continuous_cd = true
@@ -39,6 +39,7 @@ material = SubResource("StandardMaterial3D_8v4ix")
 [node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D" unique_id=1413086261]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0076225, 0)
 radial_segments = 64
+rings = 12
 material = SubResource("StandardMaterial3D_8v4ix")
 
 [node name="CSGCylinder3D7" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=1256814292]
