@@ -16,6 +16,16 @@ extends Resource
 # Purity are valoarea implicită 1.0 (float)
 @export var purity: float = 1.0
 
+# Per-batch pipeline state. IMPORTANT: these must only ever be set on a
+# duplicate() of this resource, never on the shared .tres asset itself —
+# otherwise two simultaneous batches of the same recipe would corrupt each
+# other's progress. Mixer/Furnace/etc. duplicate before touching these.
+@export var cooked: bool = false
+@export var pressurized: bool = false
+@export var on_tray: bool = false
+@export var frozen: bool = false
+@export var packaged: bool = false
+
 # Funcție care calculează automat toate prețurile rețetei
 func calculate_prices(ingredient_resources: Array[Ingredient]) -> Dictionary:
 	if recipe_name == "Useless Garbage":

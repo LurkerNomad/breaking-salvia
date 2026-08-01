@@ -70,12 +70,17 @@ func _on_item_received(item: PhysicalIngredient) -> void:
 		return
 	if is_mixing:
 		return  # don't let contents change mid-mix
+	if last_result != null:
+		return  # a finished batch is waiting for transfer — clear it out first
 
 	if item.ingredient_type == null or item.ingredient_type.item_name == "":
 		return
 
 	var item_name := item.ingredient_type.item_name
 	current_contents[item_name] = current_contents.get(item_name, 0) + 1
+
+	if item_receiver:
+		item_receiver.consume(item)  # now that we've accepted it, it's safe to despawn
 
 	if decay_timer and decay_timer.is_stopped():
 		decay_timer.start()
@@ -143,6 +148,8 @@ func _on_transfer_requested() -> void:
 
 	output_socket.send_payload(last_result)
 	last_result = null
+	current_contents.clear()
+	_sync_tablet_display()  # back to "Mixer: Empty" — don't leave "Result: X" showing
 
 
 func _evaluate_and_process_mix() -> void:
@@ -189,32 +196,39 @@ func _finish_mixing(recipe: Recipe) -> void:
 	if decay_timer:
 		decay_timer.stop()
 
-	recipe.purity = current_purity
-	last_result = recipe
-	mix_completed.emit(recipe, current_purity)
+	# Work on a private copy — 'recipe' here is the shared .tres asset;
+	# mutating it directly would corrupt every other batch using the same recipe.
+	var batch := recipe.duplicate() as Recipe
+	batch.purity = current_purity
+	last_result = batch
+	mix_completed.emit(batch, current_purity)
 
-	_spawn_recipe_output(recipe)
-	_reset_mixer(recipe.recipe_name)
+	_spawn_recipe_output(batch)
+	_reset_mixer(batch.recipe_name)
 
 
 func _spoil_batch() -> void:
 	if decay_timer:
 		decay_timer.stop()
 
+	var batch: Recipe = null
 	if garbage_recipe:
-		garbage_recipe.purity = 0.0
-	last_result = garbage_recipe
+		batch = garbage_recipe.duplicate() as Recipe
+		batch.purity = 0.0
+	last_result = batch
 
-	mix_completed.emit(garbage_recipe, 0.0)
-	_spawn_recipe_output(garbage_recipe)
-	_reset_mixer(garbage_recipe.recipe_name if garbage_recipe else "Useless Garbage")
+	mix_completed.emit(batch, 0.0)
+	_spawn_recipe_output(batch)
+	_reset_mixer(batch.recipe_name if batch else "Useless Garbage")
 
 
 func _spawn_recipe_output(recipe: Recipe) -> void:
 	var scene_to_spawn: PackedScene = null
 	var ing_res: Ingredient = null
 
-	if recipe == garbage_recipe:
+	# recipe is now always a duplicate() (see _finish_mixing/_spoil_batch),
+	# so compare by name rather than reference identity.
+	if recipe and garbage_recipe and recipe.recipe_name == garbage_recipe.recipe_name:
 		scene_to_spawn = garbage_physical_scene
 		ing_res = garbage_ingredient_resource
 

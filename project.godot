@@ -43,6 +43,10 @@ enabled=PackedStringArray("res://addons/netfox.internals/plugin.cfg", "res://add
 transfer_button=""
 mix_button=""
 mixer_tablet=""
+furnace_temp_up_button=""
+furnace_temp_down_button=""
+furnace_cook_button=""
+furnace_transfer_button=""
 
 [importer_defaults]
 

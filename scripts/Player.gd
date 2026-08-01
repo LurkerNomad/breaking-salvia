@@ -114,38 +114,6 @@ func _input(event):
 	if not is_multiplayer_authority():
 		return
 
-	# --- Mixer Tablet & General Object Interaction ---
-	if interact_ray.is_colliding():
-		var collider := interact_ray.get_collider()
-
-		if not is_instance_valid(collider):
-			return
-
-		var hit_point := interact_ray.get_collision_point()
-
-		# Scroll Wheel handling for Tablet when not holding an item
-		var scroll_step := 0.0
-		if event is InputEventMouseButton and event.pressed:
-			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-				scroll_step = -1.0
-			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				scroll_step = 1.0
-
-		var tablet := get_tree().get_first_node_in_group("mixer_tablet") as MixerTablet
-
-		if tablet and (
-			collider.is_in_group("mix_button")
-			or collider.is_in_group("transfer_button")
-		):
-			var is_click: bool = event.is_action_pressed("interact")
-
-			if is_click or scroll_step != 0.0:
-				tablet.handle_ray_interaction(collider, hit_point, is_click, scroll_step)
-
-				if is_click:
-					return
-
-	# --- Pickup / Drop / Throw Logic ---
 	if event.is_action_pressed("interact"):
 		if held_item:
 			_do_drop()
@@ -204,10 +172,19 @@ func _sync_state(pos: Vector3, body_rot_y: float, head_rot: Vector3):  # ← add
 func _try_pickup() -> void:
 	if not interact_ray.is_colliding():
 		return
-
 	var candidate = interact_ray.get_collider()
 
-	if not is_instance_valid(candidate):
+	# Valve areas (e.g. FuelCanister's on/off valve) are Area3D, not
+	# PhysicalIngredient — requires RayCast3D's "Collide With Areas" enabled
+	# in the Inspector, or this never triggers.
+	if candidate is Area3D and candidate.is_in_group("fuel_valve"):
+		var valve_area := candidate as Area3D
+		var canister := valve_area.get_parent()
+		if canister and canister.has_method("toggle_valve"):
+			if multiplayer.is_server():
+				canister.toggle_valve(int(name))
+			else:
+				_request_valve_toggle.rpc_id(1, canister.get_path())
 		return
 
 	if not (candidate is PhysicalIngredient):
@@ -290,6 +267,16 @@ func _request_carry_distance(item_path: NodePath, new_distance: float) -> void:
 	if item == null:
 		return
 	item.set_carry_distance(requester_id, new_distance)
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func _request_valve_toggle(canister_path: NodePath) -> void:
+	if not multiplayer.is_server():
+		return
+	var requester_id := multiplayer.get_remote_sender_id()
+	var canister: Node = get_node_or_null(canister_path)
+	if canister and canister.has_method("toggle_valve"):
+		canister.toggle_valve(requester_id)
 
 
 # held_item is now kept in sync automatically by PhysicalIngredient's

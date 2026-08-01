@@ -1,10 +1,15 @@
 extends Area3D
 class_name ItemReceiver
 
+## IMPORTANT CONTRACT: item_received is just a notification — it does NOT
+## mean the item will be consumed. The listener must call consume(item)
+## itself once it has actually decided to accept the ingredient (e.g. after
+## checking is_mixing / last_result guards). This avoids silently destroying
+## ingredients that the listener rejected.
 signal item_received(item: PhysicalIngredient)
 
 @export var accepted_types: Array[String] = []   # empty = accept anything
-@export var consume_item: bool = true             # despawn the item once accepted
+@export var consume_item: bool = true             # despawn the item once the listener confirms via consume()
 
 
 func _ready() -> void:
@@ -34,12 +39,16 @@ func _on_body_entered(body: Node) -> void:
 
 	print("[ItemReceiver] Before emit")
 	item_received.emit(item)
-	print("[ItemReceiver] After emit")
-	print("[ItemReceiver] consume_item =", consume_item)
+	print("[ItemReceiver] After emit — awaiting listener to call consume() if accepted")
 
-	# Consumable ingredients (fuel/oxygen canisters — ConsumableIngredient)
-	# get drained over time, not destroyed on first contact. PhysicalIngredient
-	# auto-tags itself into "consumable_ingredient" based on resource type.
+
+## Call this from the listener ONLY once it has actually accepted the item
+## (e.g. Mixer calls this after passing its is_mixing / last_result guards).
+## Consumable ingredients (fuel/oxygen canisters) are still left physically
+## intact regardless, since they're drained over time, not single-use.
+func consume(item: PhysicalIngredient) -> void:
+	if not multiplayer.is_server():
+		return
 	if consume_item and not item.is_in_group("consumable_ingredient"):
 		print("[ItemReceiver] Requesting despawn")
 		item.request_despawn()

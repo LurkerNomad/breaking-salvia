@@ -4,8 +4,12 @@
 [ext_resource type="Script" uid="uid://4sq6gou4tsf3" path="res://scripts/Recipes.gd" id="1_o4tsa"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_o4tsa")
 recipe_name = "Useless Garbage"
 recipe_icon = ExtResource("1_2j5so")
+cook_time = 1
+temperature = 1
+pressure = 1
 purity = 0.0
 metadata/_custom_type_script = "uid://4sq6gou4tsf3"

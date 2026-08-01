@@ -57,12 +57,30 @@ func release(hose_end: HoseEnd) -> void:
 
 
 ## Called by TransferHose once a payload finishes its 2.5s transit and
-## arrives at this socket. Forwards to whatever machine owns this socket.
+## arrives at this socket. Forwards to whatever machine owns this socket,
+## passing itself along so machines with more than one input socket (e.g.
+## Furnace: recipe input vs fuel input) can tell them apart.
 func deliver(payload) -> void:
 	if owning_machine and owning_machine.has_method("receive_from_hose"):
-		owning_machine.receive_from_hose(payload)
+		owning_machine.receive_from_hose(payload, self)
 	else:
 		print("[MachineSocket] ", name, " has no owning_machine with receive_from_hose() — payload dropped: ", payload)
+
+
+## For continuous streams (e.g. a fuel canister's valve, not a discrete
+## batch), returns the socket on the OTHER end of the currently connected
+## hose, if any — bypasses TransferHose's blue-flash/delay theatrics, which
+## are meant for one-shot batch sends, not a steady drip.
+func get_other_end_socket() -> MachineSocket:
+	if connected_hose_end == null:
+		return null
+	var hose := connected_hose_end.get_parent() as TransferHose
+	if hose == null:
+		return null
+	var other_end: HoseEnd = hose.output_end if hose.input_end == connected_hose_end else hose.input_end
+	if other_end == null:
+		return null
+	return other_end.socketed_to
 
 
 ## Called by the OUTPUT-side machine (e.g. Mixer) to push a payload out
