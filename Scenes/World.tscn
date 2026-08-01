@@ -10,8 +10,12 @@
 [ext_resource type="Script" uid="uid://o70wrief25ns" path="res://scripts/ItemReciever.gd" id="7_uo7di"]
 [ext_resource type="Script" uid="uid://4sq6gou4tsf3" path="res://scripts/Recipes.gd" id="8_8l3nt"]
 [ext_resource type="Script" uid="uid://dlux56lfnyyxr" path="res://scripts/mixer_tablet.gd" id="8_ti1bm"]
+[ext_resource type="Script" uid="uid://e75hlbe8u34k" path="res://scripts/Ingredients.gd" id="9_kn06e"]
 [ext_resource type="Resource" uid="uid://b4kawimmvfgx1" path="res://Recipes/minty_salvia.tres" id="9_kwl8l"]
+[ext_resource type="PackedScene" uid="uid://3xl337lkk4n0" path="res://Models/IngredientModels/Water.tscn" id="10_kn06e"]
 [ext_resource type="Resource" uid="uid://c7kfcl2q5rk5a" path="res://Recipes/uselessgarb.tres" id="10_kwl8l"]
+[ext_resource type="PackedScene" uid="uid://dj4ssx1bnetf" path="res://Models/IngredientModels/Colouring.tscn" id="13_xiqgv"]
+[ext_resource type="PackedScene" uid="uid://d4aypwe3eynmy" path="res://Models/IngredientModels/Mint.tscn" id="15_waglr"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ggkii"]
 panorama = ExtResource("2_j0p05")
@@ -62,7 +66,25 @@ uv1_triplanar_sharpness = 46.850826
 transparency = 1
 albedo_color = Color(1, 1, 1, 0.5372549)
 
-[node name="World" type="Node3D" unique_id=1664425396]
+[sub_resource type="Resource" id="Resource_rwt1y"]
+resource_local_to_scene = true
+script = ExtResource("9_kn06e")
+item_name = "Colouring"
+metadata/_custom_type_script = "uid://e75hlbe8u34k"
+
+[sub_resource type="Resource" id="Resource_mvfa8"]
+resource_local_to_scene = true
+script = ExtResource("9_kn06e")
+item_name = "Mint"
+metadata/_custom_type_script = "uid://e75hlbe8u34k"
+
+[sub_resource type="Resource" id="Resource_r0dna"]
+resource_local_to_scene = true
+script = ExtResource("9_kn06e")
+item_name = "Water"
+metadata/_custom_type_script = "uid://e75hlbe8u34k"
+
+[node name="World2" type="Node3D" unique_id=1664425396]
 script = ExtResource("1_kqs1s")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=15112238]
@@ -1263,3 +1285,15 @@ size = Vector3(0.22271729, 0.44091797, 0.44970703)
 [node name="CSGBox3D6" type="CSGBox3D" parent="TheBrew3/TheCompressor" unique_id=984827837]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, 1.5595646)
 size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="Salvia" parent="." unique_id=1514757603 instance=ExtResource("13_xiqgv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19499493, 0.32958984, -4.598777)
+ingredient_type = SubResource("Resource_rwt1y")
+
+[node name="Salvia2" parent="." unique_id=30427961 instance=ExtResource("15_waglr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0281446, 0.32958984, -4.6312613)
+ingredient_type = SubResource("Resource_mvfa8")
+
+[node name="Water2" parent="." unique_id=1638821132 instance=ExtResource("10_kn06e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8900679, 0.4353221, -3.3143187)
+ingredient_type = SubResource("Resource_r0dna")

@@ -180,14 +180,7 @@ func request_despawn() -> void:
 
 @rpc("authority", "call_local", "reliable")
 func _despawn() -> void:
-	print(
-		"[PhysicalIngredient] Despawn on peer ",
-		multiplayer.get_unique_id(),
-		" : ",
-		name
-	)
-
 	if holder_id != -1:
 		_set_holder_tracking(holder_id, null)
-
+		holder_id = -1
 	queue_free()

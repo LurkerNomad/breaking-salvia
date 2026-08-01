@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://ipum21je4ahf"]
+
+[ext_resource type="Script" uid="uid://c35aiojnfsrjk" path="res://scripts/transferhose.gd" id="1_anawj"]
+[ext_resource type="Script" uid="uid://wl08yv73qh3f" path="res://scripts/hoseend.gd" id="2_wamkb"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_oae41"]
+height = 0.25708008
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oae41"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2a63y"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ggkii"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oae41"]
+resource_local_to_scene = true
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ied62"]
+albedo_color = Color(0.11119685, 0.11119685, 0.11119681, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_oae41"]
+material = SubResource("StandardMaterial3D_ied62")
+top_radius = 0.29882813
+bottom_radius = 0.29882813
+
+[node name="TransferHose" type="Node3D" unique_id=136232759 node_paths=PackedStringArray("input_end", "output_end", "cable_mesh")]
+script = ExtResource("1_anawj")
+input_end = NodePath("InputEnd")
+output_end = NodePath("OutputEnd")
+cable_mesh = NodePath("Cable")
+
+[node name="InputEnd" type="RigidBody3D" parent="." unique_id=855999117 node_paths=PackedStringArray("connect_area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+script = ExtResource("2_wamkb")
+connector_type = null
+connect_area = NodePath("ConnectArea")
+snap_on_connect = null
+carry_distance = null
+throw_force = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InputEnd" unique_id=1919144524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08117676, 0)
+shape = SubResource("CylinderShape3D_oae41")
+
+[node name="ConnectArea" type="Area3D" parent="InputEnd" unique_id=242665468]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InputEnd/ConnectArea" unique_id=2060758666]
+shape = SubResource("SphereShape3D_oae41")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="InputEnd" unique_id=249312171]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15797424, 0)
+height = 0.3159485
+material = SubResource("StandardMaterial3D_2a63y")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="InputEnd/CSGCylinder3D2" unique_id=777120721]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10482627, 0)
+operation = 2
+radius = 0.40429688
+height = 0.28662872
+material = SubResource("StandardMaterial3D_2a63y")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="InputEnd/CSGCylinder3D2" unique_id=776342720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09989753, 0)
+radius = 0.40429688
+height = 0.17969513
+material = SubResource("StandardMaterial3D_ggkii")
+
+[node name="OutputEnd" type="RigidBody3D" parent="." unique_id=812540075 node_paths=PackedStringArray("connect_area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+script = ExtResource("2_wamkb")
+connector_type = 1
+connect_area = NodePath("ConnectArea")
+snap_on_connect = null
+carry_distance = null
+throw_force = null
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="OutputEnd" unique_id=1865912032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15797424, 0)
+height = 0.3159485
+material = SubResource("StandardMaterial3D_oae41")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="OutputEnd/CSGCylinder3D2" unique_id=646606546]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10482627, 0)
+operation = 2
+radius = 0.40429688
+height = 0.28662872
+material = SubResource("StandardMaterial3D_oae41")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="OutputEnd/CSGCylinder3D2" unique_id=1447557433]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09989753, 0)
+radius = 0.40429688
+height = 0.17969513
+material = SubResource("StandardMaterial3D_ggkii")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OutputEnd" unique_id=686932044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08117676, 0)
+shape = SubResource("CylinderShape3D_oae41")
+
+[node name="ConnectArea" type="Area3D" parent="OutputEnd" unique_id=730167070]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OutputEnd/ConnectArea" unique_id=1164224725]
+shape = SubResource("SphereShape3D_oae41")
+
+[node name="Cable" type="MeshInstance3D" parent="." unique_id=1209120101]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_oae41")

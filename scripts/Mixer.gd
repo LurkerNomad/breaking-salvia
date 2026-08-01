@@ -8,6 +8,7 @@ signal mix_completed(outcome_recipe: Recipe, purity: float)
 @export var item_receiver: ItemReceiver
 @export var mixer_tablet: MixerTablet
 @export var spawn_point: Marker3D
+@export var output_socket: MachineSocket   # the hose connection point that feeds the furnace
 
 @export_group("Recipes & Outputs")
 ## Array of all valid recipes the mixer can output
@@ -27,10 +28,20 @@ signal mix_completed(outcome_recipe: Recipe, purity: float)
 ## Minimum purity floor
 @export var min_purity: float = 0.1
 
+@export_group("Mixing")
+## How long a mix takes, in seconds. Lower this during debugging so you're
+## not waiting 30s every test run.
+@export var mix_duration: float = 30.0
+
 # Server state
 var current_contents: Dictionary = {}  # e.g. {"Salvia": 2, "Water": 3}
 var current_purity: float = 1.0
 var decay_timer: Timer
+
+var is_mixing: bool = false
+var _mix_time_remaining: float = 0.0
+var _last_synced_second: int = -1
+var last_result: Recipe = null   # what the transfer button will send out
 
 
 func _ready() -> void:
@@ -57,6 +68,8 @@ func _setup_decay_timer() -> void:
 func _on_item_received(item: PhysicalIngredient) -> void:
 	if not multiplayer.is_server():
 		return
+	if is_mixing:
+		return  # don't let contents change mid-mix
 
 	if item.ingredient_type == null or item.ingredient_type.item_name == "":
 		return
@@ -72,20 +85,64 @@ func _on_item_received(item: PhysicalIngredient) -> void:
 
 ## Triggered when the user presses the 3D "Mix" button
 func _on_mix_requested() -> void:
+	print("[Mixer] Mix requested. is_mixing=", is_mixing, " contents=", current_contents)
+
 	if not multiplayer.is_server():
 		return
 
-	if current_contents.is_empty():
+	if is_mixing or current_contents.is_empty():
+		print("[Mixer] Ignored — already mixing or empty")
 		return
 
-	_evaluate_and_process_mix()
+	if decay_timer:
+		decay_timer.stop()  # no decay while actively mixing
+
+	is_mixing = true
+	_mix_time_remaining = mix_duration
+	_last_synced_second = -1
+
+	print("[Mixer] Mixing STARTED. duration=", mix_duration, " mixer_tablet assigned=", mixer_tablet != null)
+
+	if mixer_tablet:
+		mixer_tablet.mix_started.rpc()
+	else:
+		print("[Mixer] WARNING: mixer_tablet is not assigned — countdown will never reach the tablet")
+
+
+func _process(delta: float) -> void:
+	if not multiplayer.is_server():
+		return
+	if not is_mixing:
+		return
+
+	_mix_time_remaining -= delta
+	var whole_seconds := int(ceil(_mix_time_remaining))
+
+	if whole_seconds != _last_synced_second:
+		_last_synced_second = whole_seconds
+		print("[Mixer] Countdown: ", whole_seconds, "s remaining")
+		if mixer_tablet:
+			mixer_tablet.update_countdown.rpc(maxi(whole_seconds, 0))
+
+	if _mix_time_remaining <= 0.0:
+		is_mixing = false
+		print("[Mixer] Mixing FINISHED — evaluating recipe")
+		_evaluate_and_process_mix()
 
 
 ## Reserved for future logic (e.g. dumping contents into a container)
 func _on_transfer_requested() -> void:
 	if not multiplayer.is_server():
 		return
-	pass
+	if last_result == null:
+		print("[Mixer] Transfer pressed but nothing to send")
+		return
+	if output_socket == null:
+		print("[Mixer] Transfer pressed but no output_socket assigned")
+		return
+
+	output_socket.send_payload(last_result)
+	last_result = null
 
 
 func _evaluate_and_process_mix() -> void:
@@ -133,10 +190,11 @@ func _finish_mixing(recipe: Recipe) -> void:
 		decay_timer.stop()
 
 	recipe.purity = current_purity
+	last_result = recipe
 	mix_completed.emit(recipe, current_purity)
 
 	_spawn_recipe_output(recipe)
-	_reset_mixer()
+	_reset_mixer(recipe.recipe_name)
 
 
 func _spoil_batch() -> void:
@@ -145,10 +203,11 @@ func _spoil_batch() -> void:
 
 	if garbage_recipe:
 		garbage_recipe.purity = 0.0
+	last_result = garbage_recipe
 
 	mix_completed.emit(garbage_recipe, 0.0)
 	_spawn_recipe_output(garbage_recipe)
-	_reset_mixer()
+	_reset_mixer(garbage_recipe.recipe_name if garbage_recipe else "Useless Garbage")
 
 
 func _spawn_recipe_output(recipe: Recipe) -> void:
@@ -172,10 +231,18 @@ func _spawn_recipe_output(recipe: Recipe) -> void:
 		spawned_item.global_transform = spawn_trans
 
 
-func _reset_mixer() -> void:
+## Clears the "primary" ingredients used in the batch and shows the finished
+## product name on the tablet in their place. result_name stays displayed
+## until the next mix starts filling the list again.
+func _reset_mixer(result_name: String = "") -> void:
 	current_contents.clear()
 	current_purity = 1.0
-	_sync_tablet_display()
+
+	if mixer_tablet:
+		if result_name != "":
+			mixer_tablet.show_result.rpc(result_name)
+		else:
+			_sync_tablet_display()
 
 
 func _sync_tablet_display() -> void:

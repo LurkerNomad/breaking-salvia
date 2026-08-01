@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://e75hlbe8u34k" path="res://scripts/Ingredients.gd" id="2_ldfnp"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("2_ldfnp")
 item_name = "Salvia"
 metadata/_custom_type_script = "uid://e75hlbe8u34k"
