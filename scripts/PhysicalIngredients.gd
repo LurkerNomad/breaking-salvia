@@ -7,13 +7,28 @@ signal picked_up(by_peer_id: int)
 signal dropped
 signal thrown
 
-
-
 @export var ingredient_type: Ingredient
-@export var carry_distance: float = 2.5     # how far in front of the camera it sits
+@export var carry_distance: float = 4.0     # how far in front of the camera it sits
 @export var throw_force: float = 12.0
 
-## Which collision bit represents PLAYER bodies.
+## How "loosely" the item chases the carry point — higher = snappier/stiffer,
+## lower = more lag/sway. This is a proportional velocity controller, not a
+## hard position lock, so the item still collides normally with the world
+## while held (walls, other objects) instead of passing through everything.
+@export var carry_follow_strength: float = 100.0
+@export var carry_max_speed: float = 100.0
+## If something blocks the item hard enough that it falls this far behind
+## the target carry position, it auto-drops instead of clipping/fighting
+## physics forever (e.g. wedged against a doorframe or another object).
+@export var carry_max_deviation: float = 4.0
+
+## Which collision bit represents PLAYER bodies. While carried, we only strip
+## THIS bit from collision_mask — not the whole layer/mask — so the item
+## stops physically shoving the carrying player around, but keeps colliding
+## with walls/windows (no tunneling through geometry while held) AND stays
+## detectable by Area3Ds (hose connect points, machine sockets) so docking
+## works while still carrying the item, not just after dropping it.
+## Set this to match whatever layer bit your Player's CharacterBody3D uses.
 @export_flags_3d_physics var player_collision_mask_bit: int = 2
 
 var holder_id: int = -1          # -1 = nobody holding it
@@ -36,14 +51,35 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	if holder_id != -1 and is_instance_valid(_held_node):
-		global_position = _held_node.global_transform * Vector3(0, 0, -carry_distance)
-		global_rotation = _held_node.global_rotation  # face the same way as the holder's view
-		linear_velocity = Vector3.ZERO
-		angular_velocity = Vector3.ZERO
+		var target_pos: Vector3 = _held_node.global_transform * Vector3(0, 0, -carry_distance)
+		var to_target := target_pos - global_position
+		var dist := to_target.length()
+
+		if dist > carry_max_deviation:
+			# Something's blocking it hard enough that it can't keep up with
+			# the carry point — auto-drop rather than fighting physics or
+			# clipping through whatever's in the way.
+			print("[PhysicalIngredient] ", name, " blocked while carried (", dist, "m behind target) — auto-dropping")
+			request_drop()
+		else:
+			var desired_velocity := to_target * carry_follow_strength
+			if desired_velocity.length() > carry_max_speed:
+				desired_velocity = desired_velocity.normalized() * carry_max_speed
+			linear_velocity = desired_velocity
+
+			# Rotate toward the holder's facing the same way — via angular
+			# velocity, not a hard rotation set, so it still responds to
+			# collisions rather than clipping through geometry to match angle.
+			var target_quat := _held_node.global_transform.basis.get_rotation_quaternion()
+			var current_quat := global_transform.basis.get_rotation_quaternion()
+			var diff_quat := target_quat * current_quat.inverse()
+			var angle := diff_quat.get_angle()
+			if angle > 0.01:
+				angular_velocity = diff_quat.get_axis() * angle * carry_follow_strength
+			else:
+				angular_velocity = Vector3.ZERO
 
 	_sync_transform.rpc(global_position, global_rotation)
-
-
 
 
 ## ── Called by a Player (via server RPC) to change holder state ─────────────
@@ -55,15 +91,17 @@ func request_pickup(requester_id: int, requester_node: Node3D) -> void:
 		return
 	holder_id = requester_id
 	_held_node = requester_node
-	freeze = true
+	# NOT frozen — stays a real dynamic body so it can be velocity-driven
+	# toward the carry point (see _physics_process) and still collide with
+	# the world instead of passing through everything while held.
 
-	# Disable collision while carried — otherwise the (frozen) RigidBody3D
-	# still occupies space and fights with the player's CharacterBody3D
-	# collider as it gets dragged along, causing jitter/pushback.
+	# Keep collision_layer UNTOUCHED — Area3Ds detect this item by checking
+	# their monitor mask against this item's layer, so zeroing it (as before)
+	# silently broke hose docking and machine socket detection while carried.
+	# Only strip the player bit from the MASK so it stops solid-colliding
+	# with whoever's carrying it, while still colliding with walls/windows.
 	_orig_collision_layer = collision_layer
 	_orig_collision_mask = collision_mask
-
-	# Remove only the player collision bit.
 	collision_mask = collision_mask & ~player_collision_mask_bit
 
 	_confirm_pickup.rpc(requester_id, collision_layer, collision_mask)
@@ -165,14 +203,13 @@ func _sync_transform(pos: Vector3, rot: Vector3) -> void:
 func _sync_carry_distance(new_distance: float) -> void:
 	carry_distance = new_distance
 
-# Replace or add this to PhysicalIngredient.gd to cleanly handle despawns
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
 		# If the item gets queue_free'd while held, reset player holder tracking
 		if holder_id != -1:
 			_set_holder_tracking(holder_id, null)
 
-# Add these functions to PhysicalIngredient.gd
 
 ## Server-authoritative despawn trigger
 func request_despawn() -> void:
@@ -183,6 +220,7 @@ func request_despawn() -> void:
 		return
 
 	_despawn.rpc()
+
 
 @rpc("authority", "call_local", "reliable")
 func _despawn() -> void:

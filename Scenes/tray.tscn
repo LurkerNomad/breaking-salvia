@@ -5,10 +5,15 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_oae41"]
 size = Vector3(1, 0.13238525, 1)
 
-[node name="Tray" type="RigidBody3D" unique_id=2011939316]
-collision_layer = 8
-collision_mask = 8
+[sub_resource type="BoxShape3D" id="BoxShape3D_2a63y"]
+size = Vector3(1, 0.1104126, 1)
+
+[node name="Tray" type="RigidBody3D" unique_id=2011939316 node_paths=PackedStringArray("product_texture", "detection_area")]
+collision_layer = 24
+collision_mask = 24
 script = ExtResource("1_ua8at")
+product_texture = NodePath("Product")
+detection_area = NodePath("DetectionArea")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=464280091]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06283569, 0)
@@ -28,3 +33,11 @@ size = Vector3(0.9346466, 0.1255, 0.93395996)
 [node name="Product" type="CSGBox3D" parent="." unique_id=609695807]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.044435054, 0)
 size = Vector3(1, 0.001, 1)
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=754613475]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=187638676]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.059906006, 0)
+shape = SubResource("BoxShape3D_2a63y")

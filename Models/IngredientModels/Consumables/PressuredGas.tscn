@@ -72,8 +72,8 @@ points = PackedVector3Array(-0.16754705, 0.9880601, -0.4704346, 0.025281046, 0.6
 [sub_resource type="SphereShape3D" id="SphereShape3D_iur6n"]
 
 [node name="PressuredGas" type="RigidBody3D" unique_id=1256987388 node_paths=PackedStringArray("output_socket", "valve_area")]
-collision_layer = 8
-collision_mask = 8
+collision_layer = 24
+collision_mask = 24
 continuous_cd = true
 script = ExtResource("1_1xj2v")
 output_socket = NodePath("OutputSocket")

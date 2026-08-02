@@ -25,6 +25,8 @@ extends Resource
 @export var on_tray: bool = false
 @export var frozen: bool = false
 @export var packaged: bool = false
+@export var broken: bool = false
+@export var hits_left: int = 3
 
 # Funcție care calculează automat toate prețurile rețetei
 func calculate_prices(ingredient_resources: Array[Ingredient]) -> Dictionary:

@@ -5,6 +5,10 @@ class_name Tray
 extends PhysicalIngredient
 
 @export var product_texture: CSGBox3D   # displays the recipe's icon once filled
+@export var detection_area: Area3D      # for slot detection (drainer, freezer, etc) —
+										  # separate from the tray's own physical
+										  # collision shape, same Area-to-Area
+										  # pattern as the hose docking system
 
 var held_recipe: Recipe = null
 var locked: bool = false   # true while sitting in the extractor's drainer mid-drain
@@ -57,3 +61,17 @@ func _sync_product(icon_path: String) -> void:
 		_tray_material.albedo_texture = null
 	else:
 		_tray_material.albedo_texture = load(icon_path) as Texture2D
+
+
+## Called by Freezer once a tray finishes its freeze_duration.
+func show_frozen_indicator() -> void:
+	if not multiplayer.is_server():
+		return
+	_sync_frozen_visual.rpc(true)
+
+
+@rpc("authority", "call_local", "reliable")
+func _sync_frozen_visual(is_frozen: bool) -> void:
+	if _tray_material == null:
+		return
+	_tray_material.albedo_color = Color(0.6, 1.0, 0.6) if is_frozen else Color(1, 1, 1)

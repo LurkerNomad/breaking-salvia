@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://dglxwon7xmcmt"]
+
+[ext_resource type="Script" uid="uid://h4ma4xh4j50d" path="res://scripts/hammer.gd" id="1_kxv3n"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_oae41"]
+size = Vector3(0.31854248, 1, 0.2616272)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ggkii"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2a63y"]
+material = SubResource("StandardMaterial3D_ggkii")
+size = Vector3(0.20605469, 0.7982788, 0.26611328)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oae41"]
+size = Vector3(0.3178711, 0.79174805, 0.27008057)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2a63y"]
+size = Vector3(1, 0.23266602, 0.3076172)
+
+[node name="Hammer" type="RigidBody3D" unique_id=1855122190 node_paths=PackedStringArray("hammer_head")]
+script = ExtResource("1_kxv3n")
+hammer_head = NodePath("HammerHead")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2016529189]
+mesh = SubResource("BoxMesh_oae41")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=41295585]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -9.153783e-05, 0.39697266, -0.0031738281)
+mesh = SubResource("BoxMesh_2a63y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=233166644]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0007324219, -0.10412598, 0.003753662)
+shape = SubResource("BoxShape3D_oae41")
+
+[node name="HammerHead" type="Area3D" parent="." unique_id=1300095016]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3813694, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HammerHead" unique_id=1241919012]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.036743164, -0.016113281)
+shape = SubResource("BoxShape3D_2a63y")

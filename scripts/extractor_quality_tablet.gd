@@ -15,8 +15,11 @@ func _ready() -> void:
 
 @rpc("authority", "call_local", "reliable")
 func update_quality(quality_fraction: float) -> void:
+	print("[ExtractorQualityTablet] update_quality called: ", quality_fraction, " quality_label assigned=", quality_label != null)
 	if quality_label:
 		quality_label.text = "%.0f%%" % (quality_fraction * 100.0)
+	else:
+		print("[ExtractorQualityTablet] WARNING: quality_label is not assigned in the Inspector")
 
 
 func _style_label(label: Label) -> void:

@@ -51,6 +51,7 @@ fuel_valve=""
 compressor_activate_button=""
 compressor_transfer_button=""
 extractor_button=""
+freezer_button=""
 
 [importer_defaults]
 

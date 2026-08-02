@@ -30,8 +30,12 @@ func _ready() -> void:
 	if input_socket:
 		input_socket.owning_machine = self
 	if drainer_area:
-		drainer_area.body_entered.connect(_on_tray_entered)
-		drainer_area.body_exited.connect(_on_tray_exited)
+		# Area-to-Area detection against the tray's own detection_area — same
+		# pattern as the hose docking system. More reliable than body_entered,
+		# which depends on the tray's physical RigidBody collision layer/mask
+		# lining up exactly with the drainer's monitor settings.
+		drainer_area.area_entered.connect(_on_tray_area_entered)
+		drainer_area.area_exited.connect(_on_tray_area_exited)
 
 	_sync_display()
 
@@ -48,7 +52,6 @@ func _process(delta: float) -> void:
 
 
 ## ── Intake ───────────────────────────────────────────────────────────────
-@warning_ignore("unused_parameter")
 func receive_from_hose(payload, from_socket: MachineSocket) -> void:
 	if not (payload is Recipe):
 		print("[Extractor] Unexpected payload: ", payload)
@@ -64,23 +67,25 @@ func receive_from_hose(payload, from_socket: MachineSocket) -> void:
 	_sync_display()
 
 
-## ── Tray detection ───────────────────────────────────────────────────────
-func _on_tray_entered(body: Node) -> void:
+## ── Tray detection (Area-to-Area against the tray's detection_area) ────────
+func _on_tray_area_entered(area: Area3D) -> void:
 	if not multiplayer.is_server():
 		return
-	if not (body is Tray):
+	var tray := area.get_parent()
+	if not (tray is Tray):
 		return
 	if current_tray != null:
 		print("[Extractor] Drainer already occupied — ignoring extra tray")
 		return
-	current_tray = body
-	print("[Extractor] Tray detected in drainer: ", body.name)
+	current_tray = tray
+	print("[Extractor] Tray detected in drainer: ", tray.name)
 
 
-func _on_tray_exited(body: Node) -> void:
+func _on_tray_area_exited(area: Area3D) -> void:
 	if not multiplayer.is_server():
 		return
-	if body != current_tray:
+	var tray := area.get_parent()
+	if tray != current_tray:
 		return
 	if is_draining:
 		return  # tray is locked mid-drain, shouldn't be able to leave anyway
@@ -90,12 +95,13 @@ func _on_tray_exited(body: Node) -> void:
 ## ── Button (implements handle_ray_interaction directly — no separate tablet
 ## needed for a single button; Player.gd's broadcast system picks this up
 ## automatically since it has the method). ─────────────────────────────────
-@warning_ignore("unused_parameter")
 func handle_ray_interaction(collider: Object, hit_point: Vector3, is_click: bool, scroll_step: float) -> void:
 	if not is_click:
 		return
+	print("[Extractor] handle_ray_interaction called with collider=", collider.name if collider is Node else collider, " groups=", collider.get_groups() if collider is Node else "n/a")
 	if not collider.is_in_group("extractor_button"):
 		return
+	print("[Extractor] Button group matched — activating")
 
 	if multiplayer.is_server():
 		_try_activate()
@@ -116,6 +122,13 @@ func _try_activate() -> void:
 		return
 	if current_tray == null:
 		print("[Extractor] No tray in drainer — button does nothing")
+		return
+	if current_tray.held_recipe != null:
+		# Guards against physics jitter: a tray resting right at the Area3D's
+		# boundary can flicker in/out of overlap and re-fire area_entered
+		# even though it never physically left — that would otherwise let a
+		# single tray get refilled repeatedly without ever being swapped out.
+		print("[Extractor] This tray is already filled — swap in an empty one")
 		return
 	if pending_batches.is_empty():
 		print("[Extractor] Nothing to dispense")
@@ -144,7 +157,12 @@ func _finish_drain() -> void:
 
 ## ── Tablet sync ──────────────────────────────────────────────────────────
 func _sync_display() -> void:
+	print("[Extractor] _sync_display: name_tablet assigned=", name_tablet != null, " quality_tablet assigned=", quality_tablet != null, " batch=", current_batch_name, " quality=", current_batch_quality, " pending=", pending_batches.size())
 	if name_tablet:
 		name_tablet.update_display.rpc(current_batch_name, pending_batches.size())
+	else:
+		print("[Extractor] WARNING: name_tablet is not assigned in the Inspector")
 	if quality_tablet:
 		quality_tablet.update_quality.rpc(current_batch_quality)
+	else:
+		print("[Extractor] WARNING: quality_tablet is not assigned in the Inspector")

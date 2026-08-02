@@ -30,10 +30,13 @@ func _on_area_area_entered(area: Area3D) -> void:
 		return
 	if connected_to != null or socketed_to != null:
 		return
-	if holder_id != -1:
-		return
 	if not (area is MachineSocket):
 		return
+
+	# Walking a hose end into a valid connection point auto-releases it from
+	# whoever's carrying it, rather than requiring a manual drop first.
+	if holder_id != -1:
+		request_drop()
 
 	var socket := area as MachineSocket
 	if socket.try_accept(self):
@@ -45,16 +48,21 @@ func _on_area_body_entered(body: Node) -> void:
 		return
 	if connected_to != null:
 		return  # already connected to something
-	if holder_id != -1:
-		return  # don't auto-connect while someone's still carrying it
 	if not (body is HoseEnd):
 		return
 
 	var other := body as HoseEnd
-	if other == self or other.connected_to != null or other.holder_id != -1 or other.socketed_to != null:
+	if other == self or other.connected_to != null or other.socketed_to != null:
 		return
 	if other.connector_type != connector_type:
 		return  # input only binds to input, output only to output
+
+	# Walking a hose end into another one auto-releases BOTH from whoever's
+	# carrying them, rather than requiring a manual drop first.
+	if holder_id != -1:
+		request_drop()
+	if other.holder_id != -1:
+		other.request_drop()
 
 	_do_connect(other)
 

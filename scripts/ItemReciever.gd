@@ -29,8 +29,15 @@ func _on_body_entered(body: Node) -> void:
 	print("[ItemReceiver] Ingredient detected:", item.name)
 
 	if item.holder_id != -1:
-		print("[ItemReceiver] Still being held")
-		return
+		# Walking a held ingredient into a valid intake auto-releases it from
+		# whoever's carrying it, same pattern as hose docking — no need to
+		# manually drop first. request_drop() is server-authoritative and
+		# synchronously clears holder_id + the holder's held_item tracking
+		# (via its call_local confirm RPC) before we continue below, so this
+		# is safe even in multiplayer — no client ever decides this, only
+		# the server (we're already inside the `is_server()` guard above).
+		print("[ItemReceiver] Held — auto-dropping before intake")
+		item.request_drop()
 
 	if not accepted_types.is_empty():
 		if item.ingredient_type == null or not accepted_types.has(item.ingredient_type.item_name):

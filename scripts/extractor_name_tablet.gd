@@ -18,10 +18,15 @@ func _ready() -> void:
 
 @rpc("authority", "call_local", "reliable")
 func update_display(product_name: String, quantity_remaining: int) -> void:
+	print("[ExtractorNameTablet] update_display called: name='", product_name, "' qty=", quantity_remaining, " name_label assigned=", name_label != null, " quantity_label assigned=", quantity_label != null)
 	if name_label:
 		name_label.text = product_name
+	else:
+		print("[ExtractorNameTablet] WARNING: name_label is not assigned in the Inspector")
 	if quantity_label:
 		quantity_label.text = "x%d" % quantity_remaining
+	else:
+		print("[ExtractorNameTablet] WARNING: quantity_label is not assigned in the Inspector")
 
 
 func _style_label(label: Label) -> void:
