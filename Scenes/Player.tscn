@@ -23,6 +23,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D" unique_id=1250911763]
 transform = Transform3D(2, 0, 0, 0, -8.742278e-08, -2, 0, 2, -8.742278e-08, 0, 0, 0)
 target_position = Vector3(0, -2.5, 0)
+collision_mask = 9
+collide_with_areas = true
 
 [node name="BodyMesh" type="MeshInstance3D" parent="." unique_id=765092102]
 mesh = SubResource("CapsuleMesh_p0vlq")

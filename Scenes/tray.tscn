@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://c0vdu4wrcp6ar"]
+
+[ext_resource type="Script" uid="uid://dcuc4wt0yuaio" path="res://scripts/Trays.gd" id="1_ua8at"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oae41"]
+size = Vector3(1, 0.13238525, 1)
+
+[node name="Tray" type="RigidBody3D" unique_id=2011939316]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_ua8at")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=464280091]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06283569, 0)
+shape = SubResource("BoxShape3D_oae41")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1976381822]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D" unique_id=934244561]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.060997814, 0)
+size = Vector3(1, 0.1255, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1263454956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0033187866, 0.07996714, 0.0032348633)
+operation = 2
+size = Vector3(0.9346466, 0.1255, 0.93395996)
+
+[node name="Product" type="CSGBox3D" parent="." unique_id=609695807]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.044435054, 0)
+size = Vector3(1, 0.001, 1)

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://xm31kl0wlxd4" path="res://images/SalviaLeaf.png" id="3_ied62"]
 [ext_resource type="PackedScene" uid="uid://dfhcnudrq4vb" path="res://Models/IngredientModels/Consumables/PressuredGas.tscn" id="4_rwvk0"]
 [ext_resource type="PackedScene" uid="uid://c7iff83vmuiu0" path="res://Models/IngredientModels/Consumables/Fuel.tscn" id="5_e0s25"]
+[ext_resource type="Script" uid="uid://b0l4x53ywf8gn" path="res://scripts/ConsumableIngredients.gd" id="5_k6b5b"]
 [ext_resource type="Material" uid="uid://ktv21jewpxdq" path="res://Textures/Metal.tres" id="6_k6b5b"]
 [ext_resource type="Texture2D" uid="uid://cqfi56r8hsewb" path="res://images/LightBulb.png" id="7_lc05e"]
 [ext_resource type="Texture2D" uid="uid://xy3bkjalnlmi" path="res://images/Vents.jpg" id="8_smcna"]
@@ -22,6 +23,11 @@
 [ext_resource type="Script" uid="uid://dx43a0oesvniy" path="res://scripts/furnace_tablet.gd" id="18_k6b5b"]
 [ext_resource type="PackedScene" uid="uid://ipum21je4ahf" path="res://Scenes/transfer_hose.tscn" id="18_kttsn"]
 [ext_resource type="Script" uid="uid://dcbj6sa0ipoqb" path="res://scripts/thecompressor.gd" id="19_lc05e"]
+[ext_resource type="Script" uid="uid://dabj51y03gh68" path="res://scripts/compressor_tablet.gd" id="19_smcna"]
+[ext_resource type="Script" uid="uid://h0gm8vh3120w" path="res://scripts/the_extractor.gd" id="20_1h3ot"]
+[ext_resource type="Script" uid="uid://b1b6gbnhx6nop" path="res://scripts/extractor_name_tablet.gd" id="21_ewix6"]
+[ext_resource type="Script" uid="uid://dcyi4b2b8dlq" path="res://scripts/extractor_quality_tablet.gd" id="22_8vyof"]
+[ext_resource type="PackedScene" uid="uid://c0vdu4wrcp6ar" path="res://Scenes/tray.tscn" id="28_fa83q"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ggkii"]
 panorama = ExtResource("2_kttsn")
@@ -37,6 +43,18 @@ sky = SubResource("Sky_2a63y")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y7y61"]
 albedo_texture = ExtResource("3_ied62")
+
+[sub_resource type="Resource" id="Resource_fa83q"]
+resource_local_to_scene = true
+script = ExtResource("5_k6b5b")
+item_name = "Pressured Gas"
+metadata/_custom_type_script = "uid://b0l4x53ywf8gn"
+
+[sub_resource type="Resource" id="Resource_22nrm"]
+resource_local_to_scene = true
+script = ExtResource("5_k6b5b")
+item_name = "Pressured Gas"
+metadata/_custom_type_script = "uid://b0l4x53ywf8gn"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q2d71"]
 transparency = 1
@@ -99,65 +117,69 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc05e"]
 albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smcna"]
-albedo_color = Color(0, 1, 0, 1)
+[sub_resource type="ViewportTexture" id="ViewportTexture_0o7ol"]
+viewport_path = NodePath("TheBrew/TheCompressor/CompressorTablet/CompressorInterface")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1h3ot"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ewix6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o1ijc"]
 resource_local_to_scene = true
-albedo_color = Color(1, 0, 0, 1)
+albedo_texture = SubResource("ViewportTexture_0o7ol")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8vyof"]
-albedo_color = Color(0, 0, 0, 1)
+[sub_resource type="ViewportTexture" id="ViewportTexture_o1ijc"]
+viewport_path = NodePath("TheBrew/TheExtractor/ExtractorNameTablet/ExtractorName")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fa83q"]
-albedo_color = Color(0, 1, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_22nrm"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e7qpw"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_omyod"]
 resource_local_to_scene = true
-albedo_color = Color(1, 0, 0, 1)
+albedo_texture = SubResource("ViewportTexture_o1ijc")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sj7ea"]
-albedo_color = Color(0, 0, 0, 1)
+[sub_resource type="ViewportTexture" id="ViewportTexture_h1k04"]
+viewport_path = NodePath("TheBrew/TheExtractor/ExtractorQualityTablet/ExtractorQuality")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0o7ol"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_h1k04")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oae41"]
+size = Vector3(2.2162476, 0.45031738, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2a63y"]
 transparency = 1
 albedo_color = Color(1, 1, 1, 0.5372549)
 
-[sub_resource type="Resource" id="Resource_k6b5b"]
+[sub_resource type="Resource" id="Resource_e7qpw"]
 resource_local_to_scene = true
 script = ExtResource("16_omyod")
 item_name = "Salvia"
 metadata/_custom_type_script = "uid://e75hlbe8u34k"
 
-[sub_resource type="Resource" id="Resource_lc05e"]
+[sub_resource type="Resource" id="Resource_sj7ea"]
 resource_local_to_scene = true
 script = ExtResource("16_omyod")
 item_name = "Water"
 metadata/_custom_type_script = "uid://e75hlbe8u34k"
 
-[sub_resource type="Resource" id="Resource_smcna"]
+[sub_resource type="Resource" id="Resource_omyod"]
 resource_local_to_scene = true
 script = ExtResource("16_omyod")
 item_name = "Salvia"
 metadata/_custom_type_script = "uid://e75hlbe8u34k"
 
-[sub_resource type="Resource" id="Resource_1h3ot"]
+[sub_resource type="Resource" id="Resource_o1ijc"]
 resource_local_to_scene = true
 script = ExtResource("16_omyod")
 item_name = "Water"
 metadata/_custom_type_script = "uid://e75hlbe8u34k"
 
-[sub_resource type="Resource" id="Resource_ewix6"]
+[sub_resource type="Resource" id="Resource_0o7ol"]
 resource_local_to_scene = true
 script = ExtResource("16_omyod")
 item_name = "Salvia"
 metadata/_custom_type_script = "uid://e75hlbe8u34k"
+
+[sub_resource type="Resource" id="Resource_h1k04"]
+resource_local_to_scene = true
+script = ExtResource("5_k6b5b")
+item_name = "Furnace Fuel"
+metadata/_custom_type_script = "uid://b0l4x53ywf8gn"
 
 [node name="World" type="Node3D" unique_id=1664425396]
 script = ExtResource("1_v1q18")
@@ -167,6 +189,8 @@ environment = SubResource("Environment_oae41")
 
 [node name="Warehouse" type="CSGCombiner3D" parent="." unique_id=1105218598]
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Warehouse" unique_id=120375346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 7, -15.071289)
@@ -232,18 +256,11 @@ material = SubResource("StandardMaterial3D_gjpho")
 
 [node name="PressuredGas" parent="Warehouse" unique_id=1256987388 instance=ExtResource("4_rwvk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88398, 0.9479482, -0.9184048)
-
-[node name="Fuel" parent="Warehouse" unique_id=836595506 instance=ExtResource("5_e0s25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.755925, 0.82958984, -5.608949)
-
-[node name="PressuredGas2" parent="Warehouse" unique_id=1314239008 instance=ExtResource("4_rwvk0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.462166, 0.82958984, -1.0604949)
-
-[node name="Fuel2" parent="Warehouse" unique_id=1441969774 instance=ExtResource("5_e0s25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.626025, 0.8295901, -3.534242)
+fuel_resource = SubResource("Resource_fa83q")
 
 [node name="PressuredGas3" parent="Warehouse" unique_id=1536532433 instance=ExtResource("4_rwvk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.000039, 0.82958984, -7.8974714)
+fuel_resource = SubResource("Resource_22nrm")
 
 [node name="CSGBox3D12" type="CSGBox3D" parent="Warehouse" unique_id=178384224]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9676025, 2.8968506, -46.821854)
@@ -272,6 +289,8 @@ material = SubResource("StandardMaterial3D_q2d71")
 [node name="StairCase" type="CSGCombiner3D" parent="." unique_id=1142276312]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.630688, 4, -9)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="StairCase" unique_id=1595411272]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
@@ -551,6 +570,8 @@ material = ExtResource("6_k6b5b")
 
 [node name="Vents" type="CSGCombiner3D" parent="." unique_id=2018790143]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2444496, 13.725671, 0)
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Vents" unique_id=851659269]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -21)
@@ -600,6 +621,8 @@ size = Vector3(3, 2, 2)
 [node name="Storage" type="CSGCombiner3D" parent="." unique_id=887753856]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 7)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Storage" unique_id=1812096255]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.3067813, -0.5)
@@ -627,6 +650,8 @@ material = SubResource("StandardMaterial3D_p70al")
 [node name="Storage2" type="CSGCombiner3D" parent="." unique_id=1153154504]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 15)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Storage2" unique_id=1775559457]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.3067813, -0.5)
@@ -654,6 +679,8 @@ material = SubResource("StandardMaterial3D_p70al")
 [node name="Storage3" type="CSGCombiner3D" parent="." unique_id=1997853113]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 23)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Storage3" unique_id=117057557]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.3067813, -0.5)
@@ -681,6 +708,8 @@ material = SubResource("StandardMaterial3D_p70al")
 [node name="Storage4" type="CSGCombiner3D" parent="." unique_id=2054565883]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 31)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Storage4" unique_id=1573335635]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.3067813, -0.5)
@@ -720,6 +749,8 @@ material = SubResource("StandardMaterial3D_kn06e")
 [node name="Desk" type="CSGCombiner3D" parent="." unique_id=1559477454]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 1, 4)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="Desk" unique_id=1084450982]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.64230347)
@@ -896,6 +927,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.165894, 0, -26)
 [node name="TheMixer" type="CSGCombiner3D" parent="TheBrew" unique_id=1465712798 node_paths=PackedStringArray("item_receiver", "mixer_tablet", "spawn_point", "output_socket")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08689964, 15)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("9_1h3ot")
 item_receiver = NodePath("Area3D")
 mixer_tablet = NodePath("MixerTablet")
@@ -930,6 +963,8 @@ size = Vector3(0.3520625, 3, 2)
 material = ExtResource("6_k6b5b")
 
 [node name="Area3D" type="Area3D" parent="TheBrew/TheMixer" unique_id=654639706]
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("13_22nrm")
 accepted_types = Array[String](["Salvia", "Water"])
 
@@ -1011,6 +1046,8 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -
 [node name="TheFurnace" type="CSGCombiner3D" parent="TheBrew" unique_id=537788006 node_paths=PackedStringArray("recipe_input_socket", "fuel_input_socket", "output_socket", "furnace_tablet")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("16_rwvk0")
 recipe_input_socket = NodePath("InputSocket")
 fuel_input_socket = NodePath("FuelInputSocket")
@@ -1042,30 +1079,17 @@ material = ExtResource("6_k6b5b")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8797913, 2.6984863, 0.016143799)
 size = Vector3(0.3163452, 6.3969727, 1.3323364)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="TheBrew/TheFurnace" unique_id=1010850897 groups=["furnace_transfer_button"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 0.60640526, -2.4948416)
-size = Vector3(0.22271729, 0.44091797, 0.44970703)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="TheBrew/TheFurnace" unique_id=980350001 groups=["furnace_cook_button"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, -2.4948416)
-size = Vector3(0.22271729, 0.44091797, 0.44970703)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="TheBrew/TheFurnace" unique_id=1339012431 groups=["furnace_temp_down_button"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.9364316, -2.054018)
-size = Vector3(0.22271729, 0.14477539, 0.44970703)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="TheBrew/TheFurnace" unique_id=720749681 groups=["furnace_temp_up_button"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.9364316, -2.8196564)
-size = Vector3(0.22271729, 0.14477539, 0.44970703)
-
-[node name="FurnaceTablet" type="CSGBox3D" parent="TheBrew/TheFurnace" unique_id=817958718 node_paths=PackedStringArray("viewport", "temperature_label", "status_label")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5036445, 2.453416, -2.4915276)
-size = Vector3(0.001, 0.79833984, 1.7332764)
+[node name="FurnaceTablet" type="CSGBox3D" parent="TheBrew/TheFurnace" unique_id=817958718 node_paths=PackedStringArray("viewport", "temperature_label", "status_label", "counter_label", "fuel_label")]
+transform = Transform3D(-1, 8.742278e-08, 3.821371e-15, 0, -4.371139e-08, 1, 8.742278e-08, 1, 4.371139e-08, 2.5036445, 2.4524548, -2.4746513)
+flip_faces = true
+size = Vector3(0.001, 1.7971802, 0.7568054)
 material = SubResource("StandardMaterial3D_ggkii")
 script = ExtResource("18_k6b5b")
 viewport = NodePath("FurnaceInterface")
 temperature_label = NodePath("FurnaceInterface/Control/ScrollContainer/VBoxContainer/Temperature_label")
 status_label = NodePath("FurnaceInterface/Control/ScrollContainer/VBoxContainer/Status_Label")
+counter_label = NodePath("FurnaceInterface/Control/ScrollContainer/VBoxContainer/Counter_label")
+fuel_label = NodePath("FurnaceInterface/Control/ScrollContainer/VBoxContainer/Fuel_label")
 
 [node name="FurnaceInterface" type="SubViewport" parent="TheBrew/TheFurnace/FurnaceTablet" unique_id=426063127]
 size = Vector2i(1000, 500)
@@ -1092,9 +1116,23 @@ alignment = 1
 
 [node name="Temperature_label" type="Label" parent="TheBrew/TheFurnace/FurnaceTablet/FurnaceInterface/Control/ScrollContainer/VBoxContainer" unique_id=943047731]
 layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Status_Label" type="Label" parent="TheBrew/TheFurnace/FurnaceTablet/FurnaceInterface/Control/ScrollContainer/VBoxContainer" unique_id=2109622238]
 layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Counter_label" type="Label" parent="TheBrew/TheFurnace/FurnaceTablet/FurnaceInterface/Control/ScrollContainer/VBoxContainer" unique_id=231041243]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fuel_label" type="Label" parent="TheBrew/TheFurnace/FurnaceTablet/FurnaceInterface/Control/ScrollContainer/VBoxContainer" unique_id=1955778068]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="TheBrew/TheFurnace" unique_id=216225020]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3249688, 1.4001884, -2.5)
@@ -1159,7 +1197,7 @@ material = SubResource("StandardMaterial3D_e0s25")
 shape = SubResource("SphereShape3D_2a63y")
 
 [node name="SnapPoint" type="Marker3D" parent="TheBrew/TheFurnace/FuelInputSocket" unique_id=300235856]
-transform = Transform3D(1, 0, 0, 0, 2.9802322e-08, 1, 0, -1, 2.9802322e-08, 0, 0, 0)
+transform = Transform3D(1, -8.742278e-08, -8.742278e-08, -8.742278e-08, -1, 0, -8.742278e-08, 7.642742e-15, -1, 0, 0, 0)
 
 [node name="OutputSocket" type="Area3D" parent="TheBrew/TheFurnace" unique_id=1283976045 node_paths=PackedStringArray("socket_marker", "owning_machine")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0941291, -2)
@@ -1192,10 +1230,16 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TheBrew/TheFurnace/OutputSocket" unique_id=288905150]
 shape = SubResource("SphereShape3D_2a63y")
 
-[node name="TheCompressor" type="CSGCombiner3D" parent="TheBrew" unique_id=1566310296]
+[node name="TheCompressor" type="CSGCombiner3D" parent="TheBrew" unique_id=1566310296 node_paths=PackedStringArray("recipe_input_socket", "gas_input_socket", "output_socket", "compressor_tablet")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.1770687)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("19_lc05e")
+recipe_input_socket = NodePath("InputSocket")
+gas_input_socket = NodePath("InputPressurizedGas")
+output_socket = NodePath("OutputSocket")
+compressor_tablet = NodePath("CompressorTablet")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="TheBrew/TheCompressor" unique_id=1583838611]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.576535, 0)
@@ -1209,58 +1253,59 @@ radius = 1.4941406
 height = 0.59472656
 material = ExtResource("6_k6b5b")
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="TheBrew/TheCompressor" unique_id=777705087]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 0.60640526, 1.5595646)
-size = Vector3(0.22271729, 0.44091797, 0.44970703)
+[node name="CompressorTablet" type="CSGBox3D" parent="TheBrew/TheCompressor" unique_id=1772315795 node_paths=PackedStringArray("viewport", "status_label", "psi_label", "gas_label")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 2.5036445, 2.2203991, 1.5374355)
+flip_faces = true
+size = Vector3(0.001, 1.7669067, 1.1391296)
+material = SubResource("StandardMaterial3D_o1ijc")
+script = ExtResource("19_smcna")
+viewport = NodePath("CompressorInterface")
+status_label = NodePath("CompressorInterface/Control/ScrollContainer/VBoxContainer/Status_Label")
+psi_label = NodePath("CompressorInterface/Control/ScrollContainer/VBoxContainer/PSI_Label")
+gas_label = NodePath("CompressorInterface/Control/ScrollContainer/VBoxContainer/Gas_Label")
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="TheBrew/TheCompressor" unique_id=1010004611]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, 1.5595646)
-size = Vector3(0.22271729, 0.44091797, 0.44970703)
+[node name="CompressorInterface" type="SubViewport" parent="TheBrew/TheCompressor/CompressorTablet" unique_id=293551097]
+size = Vector2i(1000, 500)
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="TheBrew/TheCompressor" unique_id=1772315795]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5036445, 2.257249, 1.5084743)
-size = Vector3(0.001, 1.1906738, 1.7332764)
+[node name="Control" type="Control" parent="TheBrew/TheCompressor/CompressorTablet/CompressorInterface" unique_id=1617961325]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TheBrew/TheCompressor/CompressorTablet/CompressorInterface/Control" unique_id=601982504]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TheBrew/TheCompressor/CompressorTablet/CompressorInterface/Control/ScrollContainer" unique_id=443548199]
+layout_mode = 2
+alignment = 1
+
+[node name="Status_Label" type="Label" parent="TheBrew/TheCompressor/CompressorTablet/CompressorInterface/Control/ScrollContainer/VBoxContainer" unique_id=1540364958]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PSI_Label" type="Label" parent="TheBrew/TheCompressor/CompressorTablet/CompressorInterface/Control/ScrollContainer/VBoxContainer" unique_id=492634869]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Gas_Label" type="Label" parent="TheBrew/TheCompressor/CompressorTablet/CompressorInterface/Control/ScrollContainer/VBoxContainer" unique_id=1769740472]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="TheBrew/TheCompressor" unique_id=2052105277]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3249688, 1.4001884, 1.4999981)
 size = Vector3(0.3520625, 3, 2)
 material = ExtResource("6_k6b5b")
-
-[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="TheBrew/TheCompressor" unique_id=1780393618]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2.69937, 1.6419716)
-height = 0.3159485
-material = SubResource("StandardMaterial3D_smcna")
-
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew/TheCompressor/CSGCylinder3D4" unique_id=1140254860]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10482627, 0)
-operation = 2
-radius = 0.40429688
-height = 0.28662872
-material = SubResource("StandardMaterial3D_smcna")
-
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew/TheCompressor/CSGCylinder3D4" unique_id=1845118557]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09989753, 0)
-radius = 0.40429688
-height = 0.17969513
-material = SubResource("StandardMaterial3D_1h3ot")
-
-[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="TheBrew/TheCompressor" unique_id=11035449]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -1.6702051, 1.1579742, 0)
-height = 0.3159485
-material = SubResource("StandardMaterial3D_ewix6")
-
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew/TheCompressor/CSGCylinder3D5" unique_id=1139527266]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10482627, 0)
-operation = 2
-radius = 0.40429688
-height = 0.28662872
-material = SubResource("StandardMaterial3D_ewix6")
-
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew/TheCompressor/CSGCylinder3D5" unique_id=1959086754]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09989753, 0)
-radius = 0.40429688
-height = 0.17969513
-material = SubResource("StandardMaterial3D_8vyof")
 
 [node name="InputSocket" type="Area3D" parent="TheBrew/TheCompressor" unique_id=2072079239 node_paths=PackedStringArray("socket_marker", "owning_machine")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1.5159321)
@@ -1292,18 +1337,77 @@ transform = Transform3D(1, 0, 0, 0, 2.9802322e-08, 1, 0, -1, 2.9802322e-08, 0, 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TheBrew/TheCompressor/InputSocket" unique_id=311393386]
 shape = SubResource("SphereShape3D_2a63y")
 
-[node name="MixerTranferButton" type="CSGBox3D" parent="TheBrew" unique_id=1267552004 groups=["transfer_button"]]
-transform = Transform3D(1, 0, -2.7467415e-15, 0, 1, 0, -2.7467415e-15, 0, 1, 2.5994854, 0.5195055, 12.505158)
-use_collision = true
-size = Vector3(0.22271729, 0.44091797, 0.44970703)
+[node name="InputPressurizedGas" type="Area3D" parent="TheBrew/TheCompressor" unique_id=1397117950 node_paths=PackedStringArray("socket_marker", "owning_machine")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5580378, 1.5159321)
+script = ExtResource("15_ied62")
+socket_marker = NodePath("SnapPoint")
+owning_machine = NodePath("..")
 
-[node name="MixButton" type="CSGBox3D" parent="TheBrew" unique_id=302992706 groups=["mix_button"]]
-transform = Transform3D(1, 0, -2.7467415e-15, 0, 1, 0, -2.7467415e-15, 0, 1, 2.5994854, 1.188292, 12.505158)
-use_collision = true
-size = Vector3(0.22271729, 0.44091797, 0.44970703)
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="TheBrew/TheCompressor/InputPressurizedGas" unique_id=1167644798]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.006636858, 0.1423912)
+height = 0.3159485
+material = SubResource("StandardMaterial3D_rwvk0")
 
-[node name="TheExtractor" type="CSGCombiner3D" parent="TheBrew" unique_id=512743348]
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew/TheCompressor/InputPressurizedGas/CSGCylinder3D7" unique_id=647054914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10482627, 0)
+operation = 2
+radius = 0.40429688
+height = 0.28662872
+material = SubResource("StandardMaterial3D_rwvk0")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew/TheCompressor/InputPressurizedGas/CSGCylinder3D7" unique_id=2129195596]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09989753, 0)
+radius = 0.40429688
+height = 0.17969513
+material = SubResource("StandardMaterial3D_e0s25")
+
+[node name="SnapPoint" type="Marker3D" parent="TheBrew/TheCompressor/InputPressurizedGas" unique_id=1580251960]
+transform = Transform3D(1, 0, 0, 0, 2.9802322e-08, 1, 0, -1, 2.9802322e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheBrew/TheCompressor/InputPressurizedGas" unique_id=217484165]
+shape = SubResource("SphereShape3D_2a63y")
+
+[node name="OutputSocket" type="Area3D" parent="TheBrew/TheCompressor" unique_id=1996229005 node_paths=PackedStringArray("socket_marker", "owning_machine")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.5193529, 1.0941291, -1.9073486e-06)
+script = ExtResource("15_ied62")
+connector_type = 1
+socket_marker = NodePath("SnapPoint")
+owning_machine = NodePath("..")
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="TheBrew/TheCompressor/OutputSocket" unique_id=2087588605]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.06384516, -0.1429367)
+height = 0.3159485
+material = SubResource("StandardMaterial3D_k6b5b")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew/TheCompressor/OutputSocket/CSGCylinder3D4" unique_id=1223273788]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10482627, 0)
+operation = 2
+radius = 0.40429688
+height = 0.28662872
+material = SubResource("StandardMaterial3D_k6b5b")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew/TheCompressor/OutputSocket/CSGCylinder3D4" unique_id=1805129357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09989753, 0)
+radius = 0.40429688
+height = 0.17969513
+material = SubResource("StandardMaterial3D_lc05e")
+
+[node name="SnapPoint" type="Marker3D" parent="TheBrew/TheCompressor/OutputSocket" unique_id=881177003]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.079107046, -0.11629295)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheBrew/TheCompressor/OutputSocket" unique_id=1279421027]
+shape = SubResource("SphereShape3D_2a63y")
+
+[node name="TheExtractor" type="CSGCombiner3D" parent="TheBrew" unique_id=512743348 node_paths=PackedStringArray("input_socket", "drainer_area", "name_tablet", "quality_tablet")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11)
+use_collision = true
+collision_layer = 9
+collision_mask = 9
+script = ExtResource("20_1h3ot")
+input_socket = NodePath("InputSocket")
+drainer_area = NodePath("DrainArea")
+name_tablet = NodePath("ExtractorNameTablet")
+quality_tablet = NodePath("ExtractorQualityTablet")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="TheBrew/TheExtractor" unique_id=1364985400]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.028381348, 1, 0.5)
@@ -1351,53 +1455,194 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8428893, -2.6920242)
 radius = 0.072753906
 height = 0.26818848
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="TheBrew/TheExtractor" unique_id=1789056187]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.345233, 1.8740158, -1.4915237)
+[node name="ExtractorNameTablet" type="CSGBox3D" parent="TheBrew/TheExtractor" unique_id=1789056187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.345233, 2.0213215, -1.4915237)
+flip_faces = true
 size = Vector3(0.001, 0.8239746, 1.7332764)
+material = SubResource("StandardMaterial3D_omyod")
+script = ExtResource("21_ewix6")
 
-[node name="CSGBox3D10" type="CSGBox3D" parent="TheBrew/TheExtractor" unique_id=562686475]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.345233, 0.8740158, -1.4915237)
-size = Vector3(0.001, 0.8239746, 1.7332764)
+[node name="ExtractorName" type="SubViewport" parent="TheBrew/TheExtractor/ExtractorNameTablet" unique_id=1047192144]
+size = Vector2i(1000, 500)
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew/TheExtractor" unique_id=396722124]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -1.5331955, 1.1579742, 2.223648)
+[node name="Control" type="Control" parent="TheBrew/TheExtractor/ExtractorNameTablet/ExtractorName" unique_id=1006004221]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TheBrew/TheExtractor/ExtractorNameTablet/ExtractorName/Control" unique_id=1542277549]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TheBrew/TheExtractor/ExtractorNameTablet/ExtractorName/Control/ScrollContainer" unique_id=1422365767]
+layout_mode = 2
+alignment = 1
+
+[node name="name_label" type="Label" parent="TheBrew/TheExtractor/ExtractorNameTablet/ExtractorName/Control/ScrollContainer/VBoxContainer" unique_id=2036756400]
+layout_mode = 2
+
+[node name="quantity_label" type="Label" parent="TheBrew/TheExtractor/ExtractorNameTablet/ExtractorName/Control/ScrollContainer/VBoxContainer" unique_id=274670609]
+layout_mode = 2
+
+[node name="ExtractorQualityTablet" type="CSGBox3D" parent="TheBrew/TheExtractor" unique_id=562686475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.345233, 1.2450839, -1.4915237)
+flip_faces = true
+size = Vector3(0.001, 0.35290527, 1.7332764)
+material = SubResource("StandardMaterial3D_0o7ol")
+script = ExtResource("22_8vyof")
+
+[node name="ExtractorQuality" type="SubViewport" parent="TheBrew/TheExtractor/ExtractorQualityTablet" unique_id=718531703]
+size = Vector2i(1000, 500)
+
+[node name="Control" type="Control" parent="TheBrew/TheExtractor/ExtractorQualityTablet/ExtractorQuality" unique_id=687320169]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TheBrew/TheExtractor/ExtractorQualityTablet/ExtractorQuality/Control" unique_id=1917127945]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TheBrew/TheExtractor/ExtractorQualityTablet/ExtractorQuality/Control/ScrollContainer" unique_id=816884620]
+layout_mode = 2
+alignment = 1
+
+[node name="quality_label" type="Label" parent="TheBrew/TheExtractor/ExtractorQualityTablet/ExtractorQuality/Control/ScrollContainer/VBoxContainer" unique_id=1400009181]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InputSocket" type="Area3D" parent="TheBrew/TheExtractor" unique_id=1487928761 node_paths=PackedStringArray("socket_marker", "owning_machine")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.4087152, 1, 2.3778725)
+script = ExtResource("15_ied62")
+socket_marker = NodePath("SnapPoint")
+owning_machine = NodePath("..")
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="TheBrew/TheExtractor/InputSocket" unique_id=1019771780]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.006636858, 0.1423912)
 height = 0.3159485
-material = SubResource("StandardMaterial3D_fa83q")
+material = SubResource("StandardMaterial3D_rwvk0")
 
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew/TheExtractor/CSGCylinder3D2" unique_id=1643244699]
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew/TheExtractor/InputSocket/CSGCylinder3D7" unique_id=1823587588]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10482627, 0)
 operation = 2
 radius = 0.40429688
 height = 0.28662872
-material = SubResource("StandardMaterial3D_fa83q")
+material = SubResource("StandardMaterial3D_rwvk0")
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew/TheExtractor/CSGCylinder3D2" unique_id=895341351]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew/TheExtractor/InputSocket/CSGCylinder3D7" unique_id=642898381]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09989753, 0)
 radius = 0.40429688
 height = 0.17969513
-material = SubResource("StandardMaterial3D_22nrm")
+material = SubResource("StandardMaterial3D_e0s25")
 
-[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="TheBrew/TheExtractor" unique_id=925426967]
-transform = Transform3D(2.9802322e-08, -1.0000001, 0, 1.0000001, 2.9802322e-08, 0, 0, 0, 1, -1.5446415, 1.1579742, 1)
+[node name="SnapPoint" type="Marker3D" parent="TheBrew/TheExtractor/InputSocket" unique_id=211490411]
+transform = Transform3D(1, 0, 0, 0, 2.9802322e-08, 1, 0, -1, 2.9802322e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheBrew/TheExtractor/InputSocket" unique_id=440941955]
+shape = SubResource("SphereShape3D_2a63y")
+
+[node name="DrainSocket" type="Area3D" parent="TheBrew/TheExtractor" unique_id=2062443053 node_paths=PackedStringArray("socket_marker", "owning_machine")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.3849134, 0.99993265, 1)
+script = ExtResource("15_ied62")
+connector_type = 1
+socket_marker = NodePath("SnapPoint")
+owning_machine = NodePath("..")
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="TheBrew/TheExtractor/DrainSocket" unique_id=1458122259]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.06384516, -0.1429367)
 height = 0.3159485
-material = SubResource("StandardMaterial3D_e7qpw")
+material = SubResource("StandardMaterial3D_k6b5b")
 
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew/TheExtractor/CSGCylinder3D9" unique_id=925548415]
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="TheBrew/TheExtractor/DrainSocket/CSGCylinder3D4" unique_id=12359644]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10482627, 0)
 operation = 2
 radius = 0.40429688
 height = 0.28662872
-material = SubResource("StandardMaterial3D_e7qpw")
+material = SubResource("StandardMaterial3D_k6b5b")
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew/TheExtractor/CSGCylinder3D9" unique_id=1513187850]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TheBrew/TheExtractor/DrainSocket/CSGCylinder3D4" unique_id=416467805]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09989753, 0)
 radius = 0.40429688
 height = 0.17969513
-material = SubResource("StandardMaterial3D_sj7ea")
+material = SubResource("StandardMaterial3D_lc05e")
+
+[node name="SnapPoint" type="Marker3D" parent="TheBrew/TheExtractor/DrainSocket" unique_id=1535469014]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.079107046, -0.11629295)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheBrew/TheExtractor/DrainSocket" unique_id=392403948]
+shape = SubResource("SphereShape3D_2a63y")
+
+[node name="DrainArea" type="Area3D" parent="TheBrew/TheExtractor" unique_id=264038975]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheBrew/TheExtractor/DrainArea" unique_id=1043179133]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014129639, 0.2748413, 0)
+shape = SubResource("BoxShape3D_oae41")
+
+[node name="ExtractButton" type="CSGBox3D" parent="TheBrew" unique_id=2005205015 groups=["extractor_button"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3993835, 0.657332, -12.850098)
+size = Vector3(0.20123291, 0.57958984, 0.7001953)
+
+[node name="MixerTranferButton" type="CSGBox3D" parent="TheBrew" unique_id=1267552004 groups=["transfer_button"]]
+transform = Transform3D(1, 0, -2.7467415e-15, 0, 1, 0, -2.7467415e-15, 0, 1, 2.5994854, 0.5195055, 12.505158)
+use_collision = true
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="MixButton" type="CSGBox3D" parent="TheBrew" unique_id=302992706 groups=["mix_button"]]
+transform = Transform3D(1, 0, -2.7467415e-15, 0, 1, 0, -2.7467415e-15, 0, 1, 2.5994854, 1.188292, 12.505158)
+use_collision = true
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="TheBrew" unique_id=1010850897 groups=["furnace_transfer_button"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 0.60640526, 3.5051575)
+use_collision = true
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="TheBrew" unique_id=980350001 groups=["furnace_cook_button"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, 3.5051575)
+use_collision = true
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="TheBrew" unique_id=1339012431 groups=["furnace_temp_down_button"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.9364316, 3.945982)
+use_collision = true
+size = Vector3(0.22271729, 0.14477539, 0.44970703)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="TheBrew" unique_id=720749681 groups=["furnace_temp_up_button"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.9364316, 3.1803436)
+use_collision = true
+size = Vector3(0.22271729, 0.14477539, 0.44970703)
+
+[node name="CompressorTrasnfer" type="CSGBox3D" parent="TheBrew" unique_id=777705087 groups=["compressor_transfer_button"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 0.60640526, -2.6175041)
+use_collision = true
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
+
+[node name="COmpressorActivate" type="CSGBox3D" parent="TheBrew" unique_id=1010004611 groups=["compressor_activate_button"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5994854, 1.2751918, -2.6175041)
+use_collision = true
+size = Vector3(0.22271729, 0.44091797, 0.44970703)
 
 [node name="Desk2" type="CSGCombiner3D" parent="." unique_id=101342608]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 1, -39.545456)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="Desk2" unique_id=1917822691]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -0.5, -9.642303)
@@ -1413,6 +1658,8 @@ material = SubResource("StandardMaterial3D_p70al")
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=570534906]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -44.69309)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1524072811]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.608144, -0.064453125, -2.2976952)
@@ -1431,6 +1678,8 @@ material = SubResource("StandardMaterial3D_p70al")
 [node name="TheRestocker" type="CSGCombiner3D" parent="." unique_id=1545574527]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.473132, 0, 0.11396766)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="TheRestocker" unique_id=1862213288]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.026867867, 0.3035549, -0.11396766)
@@ -1452,6 +1701,8 @@ light_energy = 0.208
 [node name="TheEraser" type="CSGCombiner3D" parent="." unique_id=715549625]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.473132, 0, -3.8860323)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="TheEraser" unique_id=1975447228]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.026867867, 0.3035549, -0.11396766)
@@ -1517,30 +1768,29 @@ text = "Destroy"
 
 [node name="Salvia" parent="." unique_id=1514757603 instance=ExtResource("15_sj7ea")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8934498, 0.32959008, -6.9531713)
-ingredient_type = SubResource("Resource_k6b5b")
+ingredient_type = SubResource("Resource_e7qpw")
 
 [node name="Water" parent="." unique_id=1638821132 instance=ExtResource("17_o1ijc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.338445, 0.32959032, -6.526579)
-ingredient_type = SubResource("Resource_lc05e")
+ingredient_type = SubResource("Resource_sj7ea")
 
 [node name="Salvia2" parent="." unique_id=686714035 instance=ExtResource("15_sj7ea")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.244205, 0.32959008, -4.100345)
-ingredient_type = SubResource("Resource_smcna")
+ingredient_type = SubResource("Resource_omyod")
 
 [node name="Water2" parent="." unique_id=591223897 instance=ExtResource("17_o1ijc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92314124, 0.32958984, -3.0067525)
-ingredient_type = SubResource("Resource_1h3ot")
+ingredient_type = SubResource("Resource_o1ijc")
 
 [node name="Salvia3" parent="." unique_id=1081635199 instance=ExtResource("15_sj7ea")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6586113, 0.32958984, -4.4340997)
-ingredient_type = SubResource("Resource_ewix6")
-
-[node name="Fuel" parent="." unique_id=272657030 instance=ExtResource("5_e0s25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.200785, 0.8845695, -3.3028464)
+ingredient_type = SubResource("Resource_0o7ol")
 
 [node name="Storage5" type="CSGCombiner3D" parent="." unique_id=422560801]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2, 7)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Storage5" unique_id=645781035]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.3067813, -0.5)
@@ -1568,6 +1818,8 @@ material = SubResource("StandardMaterial3D_p70al")
 [node name="Storage6" type="CSGCombiner3D" parent="." unique_id=1789665740]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2, 15)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Storage6" unique_id=2052214106]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.3067813, -0.5)
@@ -1595,6 +1847,8 @@ material = SubResource("StandardMaterial3D_p70al")
 [node name="Storage7" type="CSGCombiner3D" parent="." unique_id=1772592326]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2, 23)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Storage7" unique_id=1469857521]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.3067813, -0.5)
@@ -1622,6 +1876,8 @@ material = SubResource("StandardMaterial3D_p70al")
 [node name="Storage8" type="CSGCombiner3D" parent="." unique_id=901949410]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2, 31)
 use_collision = true
+collision_layer = 9
+collision_mask = 9
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Storage8" unique_id=421030570]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.3067813, -0.5)
@@ -1654,3 +1910,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.332809, 2.4814057, 0)
 
 [node name="TransferHose3" parent="." unique_id=910758214 instance=ExtResource("18_kttsn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.332809, 2.4814057, 0)
+
+[node name="Fuel" parent="." unique_id=1218096328 instance=ExtResource("5_e0s25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5297499, 0.8295903, -3.8113172)
+fuel_resource = SubResource("Resource_h1k04")
+
+[node name="TransferHose4" parent="." unique_id=579132851 instance=ExtResource("18_kttsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.332809, 2.4814057, 0)
+
+[node name="Tray" parent="." unique_id=2011939316 instance=ExtResource("28_fa83q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2, 0)
+
+[node name="TransferHose5" parent="." unique_id=1693320785 instance=ExtResource("18_kttsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.332809, 2.4814057, -4)

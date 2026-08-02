@@ -7,9 +7,14 @@ signal picked_up(by_peer_id: int)
 signal dropped
 signal thrown
 
+
+
 @export var ingredient_type: Ingredient
-@export var carry_distance: float = 1.5     # how far in front of the camera it sits
+@export var carry_distance: float = 2.5     # how far in front of the camera it sits
 @export var throw_force: float = 12.0
+
+## Which collision bit represents PLAYER bodies.
+@export_flags_3d_physics var player_collision_mask_bit: int = 2
 
 var holder_id: int = -1          # -1 = nobody holding it
 var _held_node: Node3D = null    # the camera/attach node currently holding this, if any
@@ -57,8 +62,9 @@ func request_pickup(requester_id: int, requester_node: Node3D) -> void:
 	# collider as it gets dragged along, causing jitter/pushback.
 	_orig_collision_layer = collision_layer
 	_orig_collision_mask = collision_mask
-	collision_layer = 0
-	collision_mask = 0
+
+	# Remove only the player collision bit.
+	collision_mask = collision_mask & ~player_collision_mask_bit
 
 	_confirm_pickup.rpc(requester_id, collision_layer, collision_mask)
 

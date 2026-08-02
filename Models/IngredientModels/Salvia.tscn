@@ -10,6 +10,8 @@ albedo_texture = ExtResource("1_lx2eu")
 [sub_resource type="BoxShape3D" id="BoxShape3D_8v4ix"]
 
 [node name="Salvia" type="RigidBody3D" unique_id=1514757603]
+collision_layer = 8
+collision_mask = 8
 script = ExtResource("1_n3rrn")
 ingredient_type = ExtResource("2_11tma")
 

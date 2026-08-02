@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://c7iff83vmuiu0"]
 
 [ext_resource type="Script" uid="uid://b0ioj3yjtybxu" path="res://scripts/fuelcanister.gd" id="1_ix8go"]
+[ext_resource type="Resource" uid="uid://bupa7h4kg0weg" path="res://Ingredients/fuel.tres" id="2_ix8go"]
 [ext_resource type="Script" uid="uid://ntm1dwq37xsp" path="res://scripts/machinesocket.gd" id="3_x7yqe"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7futd"]
@@ -74,10 +75,13 @@ points = PackedVector3Array(-0.16754705, 0.9880601, -0.4704346, 0.025281046, 0.6
 [sub_resource type="SphereShape3D" id="SphereShape3D_oae41"]
 
 [node name="Fuel" type="RigidBody3D" unique_id=1256987388 node_paths=PackedStringArray("output_socket", "valve_area")]
+collision_layer = 8
+collision_mask = 8
 continuous_cd = true
 script = ExtResource("1_ix8go")
 output_socket = NodePath("OutputSocket")
 valve_area = NodePath("ValveArea")
+fuel_resource = ExtResource("2_ix8go")
 
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="." unique_id=692494766]
 mesh = SubResource("ArrayMesh_6f0w2")
@@ -99,7 +103,7 @@ shape = SubResource("SphereShape3D_7slec")
 [node name="SnapPoint" type="Marker3D" parent="OutputSocket" unique_id=1006688429]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.017424107, 0.08506966)
 
-[node name="ValveArea" type="Area3D" parent="." unique_id=300747844]
+[node name="ValveArea" type="Area3D" parent="." unique_id=300747844 groups=["fuel_valve"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6358241, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ValveArea" unique_id=1132130633]

@@ -1,42 +1,59 @@
-#class_name Tray
-#extends RigidBody3D
-#
-## --- Node References (Assign in Inspector) ---
-#@export var content_mesh: GeometryInstance3D 
-#
-## --- Attached Data Variables ---
-#var current_batch: Recipe = null 
-#var final_price: float = 0.0
-#var has_content: bool = false
-#
-#func _ready() -> void:
-	#if content_mesh:
-		#content_mesh.visible = false
-#
-## --- Function to load the cooked batch onto the tray ---
-#func load_cooked_batch(cooked_batch_instance: Recipe) -> void:
-	#if cooked_batch_instance == null:
-		#print("[Tray] Error: Tried to load empty batch data.")
-		#return
-		#
-	## Bind the specific batch instance to this physical tray
-	#current_batch = cooked_batch_instance
-	#has_content = true
-	#
-	## DIRECT IMPORT: Pulling the final price directly from the batch resource
-	#final_price = current_batch.final_price
-	#
-	## Update the tray visual appearance using the batch's icon texture
-	#if content_mesh and current_batch.recipe_icon:
-		#_apply_content_texture(current_batch.recipe_icon)
-		#content_mesh.visible = true
-		#
-	#print("[Tray] Loaded unique batch: ", current_batch.recipe_name)
-	#print("[Tray] Imported Price: $", final_price)
-#
-## --- Helper to create a dynamic material for the content mesh ---
-#func _apply_content_texture(texture: Texture2D) -> void:
-	#var new_material = StandardMaterial3D.new()
-	#new_material.albedo_texture = texture
-	#new_material.roughness = 0.2
-	#content_mesh.material_override = new_material
+## A tray. Pickupable/carryable/throwable like any PhysicalIngredient — EXCEPT
+## while `locked` is true (the extractor's drainer is actively filling it),
+## during which it can't be picked up at all.
+class_name Tray
+extends PhysicalIngredient
+
+@export var product_texture: CSGBox3D   # displays the recipe's icon once filled
+
+var held_recipe: Recipe = null
+var locked: bool = false   # true while sitting in the extractor's drainer mid-drain
+
+var _tray_material: StandardMaterial3D
+
+
+func _ready() -> void:
+	super._ready()
+	if product_texture:
+		# Duplicate the material so setting THIS tray's icon doesn't repaint
+		# every other tray sharing the same base material resource.
+		var mat := product_texture.material
+		if mat is StandardMaterial3D:
+			_tray_material = mat.duplicate()
+		else:
+			_tray_material = StandardMaterial3D.new()
+		product_texture.material = _tray_material
+
+
+func request_pickup(requester_id: int, requester_node: Node3D) -> void:
+	if locked:
+		return  # can't grab a tray mid-drain
+	super.request_pickup(requester_id, requester_node)
+
+
+## Called by Extractor once a drain cycle finishes.
+func load_product(recipe: Recipe) -> void:
+	if not multiplayer.is_server():
+		return
+	held_recipe = recipe
+	var icon_path := ""
+	if recipe and recipe.recipe_icon:
+		icon_path = recipe.recipe_icon.resource_path
+	_sync_product.rpc(icon_path)
+
+
+func clear_product() -> void:
+	if not multiplayer.is_server():
+		return
+	held_recipe = null
+	_sync_product.rpc("")
+
+
+@rpc("authority", "call_local", "reliable")
+func _sync_product(icon_path: String) -> void:
+	if _tray_material == null:
+		return
+	if icon_path == "":
+		_tray_material.albedo_texture = null
+	else:
+		_tray_material.albedo_texture = load(icon_path) as Texture2D

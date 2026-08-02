@@ -1,5 +1,9 @@
 [gd_scene format=4 uid="uid://dfhcnudrq4vb"]
 
+[ext_resource type="Script" uid="uid://b0ioj3yjtybxu" path="res://scripts/fuelcanister.gd" id="1_1xj2v"]
+[ext_resource type="Resource" uid="uid://b8rfikorjq7ah" path="res://Ingredients/pressured_gas.tres" id="2_jlm0w"]
+[ext_resource type="Script" uid="uid://ntm1dwq37xsp" path="res://scripts/machinesocket.gd" id="3_1xj2v"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7futd"]
 resource_local_to_scene = true
 albedo_color = Color(1, 0, 0, 1)
@@ -63,11 +67,40 @@ _surfaces = [{
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1bwxc"]
 points = PackedVector3Array(-0.16754705, 0.9880601, -0.4704346, 0.025281046, 0.6660248, 0.6328369, 0.34260938, -0.9348816, -0.36353382, -0.4770751, -0.9081391, 0.14906564, 0.48448128, 0.13902824, 0.6453758, 0.45838702, 1.1548826, -0.12495058, -0.18326622, 1.680645, 0.112159654, 0.32318878, -1.0208452, 0.44988722, -0.48259953, 0.1344845, 0.65857124, -0.47670323, 1.0643524, -0.12154254, -0.24646123, -0.91591185, -0.43453303, 0.19652337, 1.680645, 0.112159654, 0.4924343, -0.91351926, -0.08379676, 0.14335762, 1.0331347, -0.47547734, -0.09885705, 1.680645, -0.18326208, -0.43930367, -0.9108072, -0.23852271, -0.20446654, -0.89833367, 0.45570222, -0.052540444, -0.3017313, 0.663931, 0.14414474, -0.92735565, -0.47873878, -0.35731623, 0.98103297, -0.3494884, 0.37299958, 1.1011024, -0.31377992, -0.012836582, 1.187527, 0.461416, 0.4915125, 1.028072, 0.071686484, -0.40015888, 1.143581, 0.26540685, 0.4498542, -1.0208452, 0.3232094, 0.1121142, 1.680645, -0.18326208, -0.3572144, 0.5213702, 0.6464173, 0.3595861, 0.51564175, 0.6298024, 0.37351027, 1.1408881, 0.3034195, 0.1121142, 1.680645, 0.19653162, 0.34148434, -0.18201964, 0.6623635, -0.48068208, 1.1094748, 0.07158949)
 
-[node name="PressuredGas" type="RigidBody3D" unique_id=1256987388]
+[sub_resource type="SphereShape3D" id="SphereShape3D_bubfe"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_iur6n"]
+
+[node name="PressuredGas" type="RigidBody3D" unique_id=1256987388 node_paths=PackedStringArray("output_socket", "valve_area")]
+collision_layer = 8
+collision_mask = 8
 continuous_cd = true
+script = ExtResource("1_1xj2v")
+output_socket = NodePath("OutputSocket")
+valve_area = NodePath("ValveArea")
+fuel_resource = ExtResource("2_jlm0w")
 
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="." unique_id=1121140813]
 mesh = SubResource("ArrayMesh_bubfe")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1341746973]
 shape = SubResource("ConvexPolygonShape3D_1bwxc")
+
+[node name="OutputSocket" type="Area3D" parent="." unique_id=1223116340 node_paths=PackedStringArray("socket_marker", "owning_machine")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.19142601, 0.59746003)
+script = ExtResource("3_1xj2v")
+connector_type = 1
+socket_marker = NodePath("SnapPoint")
+owning_machine = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OutputSocket" unique_id=299989101]
+shape = SubResource("SphereShape3D_bubfe")
+
+[node name="SnapPoint" type="Marker3D" parent="OutputSocket" unique_id=1020615860]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.017424107, 0.08506966)
+
+[node name="ValveArea" type="Area3D" parent="." unique_id=350766380 groups=["fuel_valve"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6358241, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ValveArea" unique_id=857997176]
+shape = SubResource("SphereShape3D_iur6n")

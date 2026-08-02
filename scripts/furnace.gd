@@ -29,6 +29,7 @@ var fuel_amount: int = 0
 var _fuel_consume_accumulator: float = 0.0
 var current_temperature: float = 20.0
 var is_cooking: bool = false
+var cook_elapsed: float = 0.0
 
 
 func _ready() -> void:
@@ -60,6 +61,7 @@ func _process(delta: float) -> void:
 		return
 
 	current_temperature += randf_range(temp_rise_min, temp_rise_max) * delta
+	cook_elapsed += delta
 
 	# Integer-safe consumption: accumulate fractional "owed" fuel in a float,
 	# only ever subtract whole ints from fuel_amount — avoids float drift.
@@ -129,6 +131,7 @@ func _on_cook_pressed() -> void:
 			print("[Furnace] Cook pressed but no recipe loaded")
 			return
 		is_cooking = true
+		cook_elapsed = 0.0
 		print("[Furnace] Cooking started")
 	else:
 		is_cooking = false
@@ -173,6 +176,7 @@ func _on_transfer_pressed() -> void:
 	loaded_recipe = null
 	has_cooked_this_batch = false
 	current_temperature = ambient_temperature
+	cook_elapsed = 0.0
 	_sync_tablet()
 
 
@@ -199,3 +203,5 @@ func _sync_tablet() -> void:
 	else:
 		status = "Idle — no recipe"
 	furnace_tablet.update_status.rpc(status)
+	furnace_tablet.update_counter.rpc(cook_elapsed)
+	furnace_tablet.update_fuel.rpc(fuel_amount)
